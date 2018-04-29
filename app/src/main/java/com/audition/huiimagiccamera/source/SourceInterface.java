@@ -1,5 +1,7 @@
 package com.audition.huiimagiccamera.source;
 
+import android.view.TextureView;
+
 /**
  * 项  目：   HuiImagicCamera
  * 包  名：   com.audition.huiimagiccamera.source
@@ -11,10 +13,8 @@ package com.audition.huiimagiccamera.source;
 public interface SourceInterface {
     /**
      * 初始化数据源
-     * @param width 宽
-     * @param height 高
      */
-    void init(int width , int height);
+    void init(TextureView textureView);
     void start();
     void stop();
     void destory();
