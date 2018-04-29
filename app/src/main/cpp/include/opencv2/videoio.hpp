@@ -102,7 +102,7 @@ enum VideoCaptureAPIs {
        CAP_OPENNI       = 900,          //!< OpenNI (for Kinect)
        CAP_OPENNI_ASUS  = 910,          //!< OpenNI (for Asus Xtion)
        CAP_ANDROID      = 1000,         //!< Android - not used
-       CAP_XIAPI        = 1100,         //!< XIMEA Camera API
+       CAP_XIAPI        = 1100,         //!< XIMEA HuiCamera API
        CAP_AVFOUNDATION = 1200,         //!< AVFoundation framework for iOS (OS X Lion will have the same API)
        CAP_GIGANETIX    = 1300,         //!< Smartek Giganetix GigEVisionSDK
        CAP_MSMF         = 1400,         //!< Microsoft Media Foundation (via videoInput)
@@ -328,7 +328,7 @@ enum { CAP_PVAPI_PIXELFORMAT_MONO8    = 1,    //!< Mono8
 
 //! @} PvAPI
 
-/** @name XIMEA Camera API
+/** @name XIMEA HuiCamera API
     @{
 */
 
@@ -393,10 +393,10 @@ enum { CAP_PROP_XI_DOWNSAMPLING                                 = 400, //!< Chan
        CAP_PROP_XI_IS_COOLED                                    = 465, //!< Returns 1 for cameras that support cooling.
        CAP_PROP_XI_COOLING                                      = 466, //!< Start camera cooling.
        CAP_PROP_XI_TARGET_TEMP                                  = 467, //!< Set sensor target temperature for cooling.
-       CAP_PROP_XI_CHIP_TEMP                                    = 468, //!< Camera sensor temperature.
-       CAP_PROP_XI_HOUS_TEMP                                    = 469, //!< Camera housing temperature.
-       CAP_PROP_XI_HOUS_BACK_SIDE_TEMP                          = 590, //!< Camera housing back side temperature.
-       CAP_PROP_XI_SENSOR_BOARD_TEMP                            = 596, //!< Camera sensor board temperature.
+       CAP_PROP_XI_CHIP_TEMP                                    = 468, //!< HuiCamera sensor temperature.
+       CAP_PROP_XI_HOUS_TEMP                                    = 469, //!< HuiCamera housing temperature.
+       CAP_PROP_XI_HOUS_BACK_SIDE_TEMP                          = 590, //!< HuiCamera housing back side temperature.
+       CAP_PROP_XI_SENSOR_BOARD_TEMP                            = 596, //!< HuiCamera sensor board temperature.
        CAP_PROP_XI_CMS                                          = 470, //!< Mode of color management system.
        CAP_PROP_XI_APPLY_CMS                                    = 471, //!< Enable applying of CMS profiles to xiGetImage (see XI_PRM_INPUT_CMS_PROFILE, XI_PRM_OUTPUT_CMS_PROFILE).
        CAP_PROP_XI_IMAGE_IS_COLOR                               = 474, //!< Returns 1 for color cameras.
@@ -560,7 +560,7 @@ enum { CAP_PROP_GPHOTO2_PREVIEW           = 17001, //!< Capture only preview fro
        CAP_PROP_GPHOTO2_FLUSH_MSGS        = 17006, //!< Readonly, returns (const char *).
        CAP_PROP_SPEED                     = 17007, //!< Exposure speed. Can be readonly, depends on camera program.
        CAP_PROP_APERTURE                  = 17008, //!< Aperture. Can be readonly, depends on camera program.
-       CAP_PROP_EXPOSUREPROGRAM           = 17009, //!< Camera exposure program.
+       CAP_PROP_EXPOSUREPROGRAM           = 17009, //!< HuiCamera exposure program.
        CAP_PROP_VIEWFINDER                = 17010  //!< Enter liveview mode.
      };
 
@@ -640,7 +640,7 @@ public:
 
     @param index camera_id + domain_offset (CAP_*) id of the video capturing device to open. To open default camera using default backend just pass 0.
     Use a `domain_offset` to enforce a specific reader implementation if multiple are available like cv::CAP_FFMPEG or cv::CAP_IMAGES or cv::CAP_DSHOW.
-    e.g. to open Camera 1 using the MS Media Foundation API use `index = 1 + cv::CAP_MSMF`
+    e.g. to open HuiCamera 1 using the MS Media Foundation API use `index = 1 + cv::CAP_MSMF`
 
     @sa The list of supported API backends cv::VideoCaptureAPIs
     */

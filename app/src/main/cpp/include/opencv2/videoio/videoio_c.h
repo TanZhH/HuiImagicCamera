@@ -110,7 +110,7 @@ enum
     CV_CAP_ANDROID_BACK =CV_CAP_ANDROID+99, // Android back camera - not used
     CV_CAP_ANDROID_FRONT =CV_CAP_ANDROID+98, // Android front camera - not used
 
-    CV_CAP_XIAPI    =1100,   // XIMEA Camera API
+    CV_CAP_XIAPI    =1100,   // XIMEA HuiCamera API
 
     CV_CAP_AVFOUNDATION = 1200,  // AVFoundation framework for iOS (OS X Lion will have the same API)
 
@@ -318,10 +318,10 @@ enum
     CV_CAP_PROP_XI_IS_COOLED                                    = 465, // Returns 1 for cameras that support cooling.
     CV_CAP_PROP_XI_COOLING                                      = 466, // Start camera cooling.
     CV_CAP_PROP_XI_TARGET_TEMP                                  = 467, // Set sensor target temperature for cooling.
-    CV_CAP_PROP_XI_CHIP_TEMP                                    = 468, // Camera sensor temperature
-    CV_CAP_PROP_XI_HOUS_TEMP                                    = 469, // Camera housing tepmerature
-    CV_CAP_PROP_XI_HOUS_BACK_SIDE_TEMP                          = 590, // Camera housing back side tepmerature
-    CV_CAP_PROP_XI_SENSOR_BOARD_TEMP                            = 596, // Camera sensor board temperature
+    CV_CAP_PROP_XI_CHIP_TEMP                                    = 468, // HuiCamera sensor temperature
+    CV_CAP_PROP_XI_HOUS_TEMP                                    = 469, // HuiCamera housing tepmerature
+    CV_CAP_PROP_XI_HOUS_BACK_SIDE_TEMP                          = 590, // HuiCamera housing back side tepmerature
+    CV_CAP_PROP_XI_SENSOR_BOARD_TEMP                            = 596, // HuiCamera sensor board temperature
     CV_CAP_PROP_XI_CMS                                          = 470, // Mode of color management system.
     CV_CAP_PROP_XI_APPLY_CMS                                    = 471, // Enable applying of CMS profiles to xiGetImage (see XI_PRM_INPUT_CMS_PROFILE, XI_PRM_OUTPUT_CMS_PROFILE).
     CV_CAP_PROP_XI_IMAGE_IS_COLOR                               = 474, // Returns 1 for color cameras.
@@ -510,7 +510,7 @@ enum
     CV_CAP_PROP_GPHOTO2_FLUSH_MSGS        = 17006, // Readonly, returns (const char *).
     CV_CAP_PROP_SPEED                     = 17007, // Exposure speed. Can be readonly, depends on camera program.
     CV_CAP_PROP_APERTURE                  = 17008, // Aperture. Can be readonly, depends on camera program.
-    CV_CAP_PROP_EXPOSUREPROGRAM           = 17009, // Camera exposure program.
+    CV_CAP_PROP_EXPOSUREPROGRAM           = 17009, // HuiCamera exposure program.
     CV_CAP_PROP_VIEWFINDER                = 17010  // Enter liveview mode.
 };
 

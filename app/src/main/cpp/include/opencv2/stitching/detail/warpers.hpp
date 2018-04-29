@@ -64,8 +64,8 @@ public:
     /** @brief Projects the image point.
 
     @param pt Source point
-    @param K Camera intrinsic parameters
-    @param R Camera rotation matrix
+    @param K HuiCamera intrinsic parameters
+    @param R HuiCamera rotation matrix
     @return Projected point
      */
     virtual Point2f warpPoint(const Point2f &pt, InputArray K, InputArray R) = 0;
@@ -73,8 +73,8 @@ public:
     /** @brief Builds the projection maps according to the given camera data.
 
     @param src_size Source image size
-    @param K Camera intrinsic parameters
-    @param R Camera rotation matrix
+    @param K HuiCamera intrinsic parameters
+    @param R HuiCamera rotation matrix
     @param xmap Projection map for the x axis
     @param ymap Projection map for the y axis
     @return Projected image minimum bounding box
@@ -84,8 +84,8 @@ public:
     /** @brief Projects the image.
 
     @param src Source image
-    @param K Camera intrinsic parameters
-    @param R Camera rotation matrix
+    @param K HuiCamera intrinsic parameters
+    @param R HuiCamera rotation matrix
     @param interp_mode Interpolation mode
     @param border_mode Border extrapolation mode
     @param dst Projected image
@@ -97,8 +97,8 @@ public:
     /** @brief Projects the image backward.
 
     @param src Projected image
-    @param K Camera intrinsic parameters
-    @param R Camera rotation matrix
+    @param K HuiCamera intrinsic parameters
+    @param R HuiCamera rotation matrix
     @param interp_mode Interpolation mode
     @param border_mode Border extrapolation mode
     @param dst_size Backward-projected image size
@@ -109,8 +109,8 @@ public:
 
     /**
     @param src_size Source image bounding box
-    @param K Camera intrinsic parameters
-    @param R Camera rotation matrix
+    @param K HuiCamera intrinsic parameters
+    @param R HuiCamera rotation matrix
     @return Projected image minimum bounding box
      */
     virtual Rect warpRoi(Size src_size, InputArray K, InputArray R) = 0;

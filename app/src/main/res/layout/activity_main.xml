@@ -7,9 +7,6 @@
     android:orientation="vertical"
     tools:context="com.audition.huiimagiccamera.MainActivity">
 
-    <TextureView
-        android:id="@+id/tv_surface"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </LinearLayout>

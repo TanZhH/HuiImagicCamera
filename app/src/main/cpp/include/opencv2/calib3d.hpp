@@ -49,7 +49,7 @@
 #include "opencv2/core/affine.hpp"
 
 /**
-  @defgroup calib3d Camera Calibration and 3D Reconstruction
+  @defgroup calib3d HuiCamera Calibration and 3D Reconstruction
 
 The functions in this section use a so-called pinhole camera model. In this model, a scene view is
 formed by projecting 3D points into the image plane using a perspective transformation.
@@ -233,10 +233,10 @@ enum { LMEDS  = 4, //!< least-median of squares algorithm
      };
 
 enum { SOLVEPNP_ITERATIVE = 0,
-       SOLVEPNP_EPNP      = 1, //!< EPnP: Efficient Perspective-n-Point Camera Pose Estimation @cite lepetit2009epnp
+       SOLVEPNP_EPNP      = 1, //!< EPnP: Efficient Perspective-n-Point HuiCamera Pose Estimation @cite lepetit2009epnp
        SOLVEPNP_P3P       = 2, //!< Complete Solution Classification for the Perspective-Three-Point Problem @cite gao2003complete
        SOLVEPNP_DLS       = 3, //!< A Direct Least-Squares (DLS) Method for PnP  @cite hesch2011direct
-       SOLVEPNP_UPNP      = 4, //!< Exhaustive Linearization for Robust Camera Pose and Focal Length Estimation @cite penate2013exhaustive
+       SOLVEPNP_UPNP      = 4, //!< Exhaustive Linearization for Robust HuiCamera Pose and Focal Length Estimation @cite penate2013exhaustive
        SOLVEPNP_AP3P      = 5, //!< An Efficient Algebraic Solution to the Perspective-Three-Point Problem @cite Ke17
        SOLVEPNP_MAX_COUNT      //!< Used for count
 };
@@ -493,7 +493,7 @@ CV_EXPORTS_W void composeRT( InputArray rvec1, InputArray tvec1,
 vector\<Point3f\> ), where N is the number of points in the view.
 @param rvec Rotation vector. See Rodrigues for details.
 @param tvec Translation vector.
-@param cameraMatrix Camera matrix \f$A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$ .
+@param cameraMatrix HuiCamera matrix \f$A = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$ .
 @param distCoeffs Input vector of distortion coefficients
 \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6 [, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$ of
 4, 5, 8, 12 or 14 elements. If the vector is empty, the zero distortion coefficients are assumed.
@@ -561,11 +561,11 @@ In this case the function requires exactly four object and image points.
 "An Efficient Algebraic Solution to the Perspective-Three-Point Problem" (@cite Ke17).
 In this case the function requires exactly four object and image points.
 -   **SOLVEPNP_EPNP** Method has been introduced by F.Moreno-Noguer, V.Lepetit and P.Fua in the
-paper "EPnP: Efficient Perspective-n-Point Camera Pose Estimation" (@cite lepetit2009epnp).
+paper "EPnP: Efficient Perspective-n-Point HuiCamera Pose Estimation" (@cite lepetit2009epnp).
 -   **SOLVEPNP_DLS** Method is based on the paper of Joel A. Hesch and Stergios I. Roumeliotis.
 "A Direct Least-Squares (DLS) Method for PnP" (@cite hesch2011direct).
 -   **SOLVEPNP_UPNP** Method is based on the paper of A.Penate-Sanchez, J.Andrade-Cetto,
-F.Moreno-Noguer. "Exhaustive Linearization for Robust Camera Pose and Focal Length
+F.Moreno-Noguer. "Exhaustive Linearization for Robust HuiCamera Pose and Focal Length
 Estimation" (@cite penate2013exhaustive). In this case the function also estimates the parameters \f$f_x\f$ and \f$f_y\f$
 assuming that both have the same value. Then the cameraMatrix is updated with the estimated
 focal length.
@@ -1479,7 +1479,7 @@ CV_EXPORTS Mat findFundamentalMat( InputArray points1, InputArray points2,
 @param points1 Array of N (N \>= 5) 2D points from the first image. The point coordinates should
 be floating-point (single or double precision).
 @param points2 Array of the second image points of the same size and format as points1 .
-@param cameraMatrix Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
+@param cameraMatrix HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
 Note that this function assumes that points1 and points2 are feature points from cameras with the
 same camera matrix.
 @param method Method for computing an essential matrix.
@@ -1563,7 +1563,7 @@ the check.
 @param points1 Array of N 2D points from the first image. The point coordinates should be
 floating-point (single or double precision).
 @param points2 Array of the second image points of the same size and format as points1 .
-@param cameraMatrix Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
+@param cameraMatrix HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
 Note that this function assumes that points1 and points2 are feature points from cameras with the
 same camera matrix.
 @param R Recovered relative rotation.
@@ -1639,7 +1639,7 @@ CV_EXPORTS_W int recoverPose( InputArray E, InputArray points1, InputArray point
 @param points1 Array of N 2D points from the first image. The point coordinates should be
 floating-point (single or double precision).
 @param points2 Array of the second image points of the same size and format as points1.
-@param cameraMatrix Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
+@param cameraMatrix HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
 Note that this function assumes that points1 and points2 are feature points from cameras with the
 same camera matrix.
 @param R Recovered relative rotation.
@@ -2200,7 +2200,7 @@ namespace fisheye
     @param imagePoints Output array of image points, 2xN/Nx2 1-channel or 1xN/Nx1 2-channel, or
     vector\<Point2f\>.
     @param affine
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
     @param alpha The skew coefficient.
     @param jacobian Optional output 2Nx15 jacobian matrix of derivatives of image points with respect
@@ -2224,7 +2224,7 @@ namespace fisheye
 
     @param undistorted Array of object points, 1xN/Nx1 2-channel (or vector\<Point2f\> ), where N is
     the number of points in the view.
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
     @param alpha The skew coefficient.
     @param distorted Output array of image points, 1xN/Nx1 2-channel, or vector\<Point2f\> .
@@ -2239,7 +2239,7 @@ namespace fisheye
 
     @param distorted Array of object points, 1xN/Nx1 2-channel (or vector\<Point2f\> ), where N is the
     number of points in the view.
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
     @param R Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3
     1-channel or 1x1 3-channel
@@ -2252,7 +2252,7 @@ namespace fisheye
     /** @brief Computes undistortion and rectification maps for image transform by cv::remap(). If D is empty zero
     distortion is used, if R or P is empty identity matrixes are used.
 
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
     @param R Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3
     1-channel or 1x1 3-channel
@@ -2270,9 +2270,9 @@ namespace fisheye
 
     @param distorted image with fisheye lens distortion.
     @param undistorted Output image with compensated fisheye lens distortion.
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
-    @param Knew Camera matrix of the distorted image. By default, it is the identity matrix but you
+    @param Knew HuiCamera matrix of the distorted image. By default, it is the identity matrix but you
     may additionally scale and shift the result by using a different matrix.
     @param new_size
 
@@ -2299,7 +2299,7 @@ namespace fisheye
 
     /** @brief Estimates new camera matrix for undistortion or rectification.
 
-    @param K Camera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
+    @param K HuiCamera matrix \f$K = \vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{_1}\f$.
     @param image_size
     @param D Input vector of distortion coefficients \f$(k_1, k_2, k_3, k_4)\f$.
     @param R Rectification transformation in the object space: 3x3 1-channel, or vector: 3x1/1x3

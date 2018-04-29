@@ -71,7 +71,7 @@ The implemented stitching pipeline is very similar to the one proposed in @cite 
 
 ![stitching pipeline](StitchingPipeline.jpg)
 
-Camera models
+HuiCamera models
 -------------
 
 There are currently 2 camera models implemented in stitching pipeline.

@@ -2965,7 +2965,7 @@ the same.
 @param distCoeffs Input vector of distortion coefficients
 \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$
 of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.
-@param newCameraMatrix Camera matrix of the distorted image. By default, it is the same as
+@param newCameraMatrix HuiCamera matrix of the distorted image. By default, it is the same as
 cameraMatrix but you may additionally scale and shift the result by using a different matrix.
  */
 CV_EXPORTS_W void undistort( InputArray src, OutputArray dst,
@@ -3063,7 +3063,7 @@ algorithms), and may be to the same x-coordinate too. So, you can form the new c
 each view where the principal points are located at the center.
 
 @param cameraMatrix Input camera matrix.
-@param imgsize Camera view image size in pixels.
+@param imgsize HuiCamera view image size in pixels.
 @param centerPrincipalPoint Location of the principal point in the new camera matrix. The
 parameter indicates whether this location should be at the image center or not.
  */
@@ -3101,7 +3101,7 @@ The function can be used for both a stereo camera head or a monocular camera (wh
 @param src Observed point coordinates, 1xN or Nx1 2-channel (CV_32FC2 or CV_64FC2).
 @param dst Output ideal point coordinates after undistortion and reverse perspective
 transformation. If matrix P is identity or omitted, dst will contain normalized point coordinates.
-@param cameraMatrix Camera matrix \f$\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
+@param cameraMatrix HuiCamera matrix \f$\vecthreethree{f_x}{0}{c_x}{0}{f_y}{c_y}{0}{0}{1}\f$ .
 @param distCoeffs Input vector of distortion coefficients
 \f$(k_1, k_2, p_1, p_2[, k_3[, k_4, k_5, k_6[, s_1, s_2, s_3, s_4[, \tau_x, \tau_y]]]])\f$
 of 4, 5, 8, 12 or 14 elements. If the vector is NULL/empty, the zero distortion coefficients are assumed.

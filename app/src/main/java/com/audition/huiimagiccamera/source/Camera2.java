@@ -25,11 +25,11 @@ import android.view.Surface;
 import android.view.TextureView;
 
 import com.audition.huiimagiccamera.natives.OpencvNatives;
-import com.audition.huiimagiccamera.utils.PreferenceHelper;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -59,7 +59,7 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
     private CaptureRequest.Builder mCaptureRequestBuilder;
     private CaptureRequest mCaptureRequest;
     private CameraCaptureSession mCameraCaptureSession;
-    private int width , height;
+    private int width, height;
 
     public Camera2(Context context) {
         this.mContext = context;
@@ -157,11 +157,12 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
         SurfaceTexture mSurfaceTexture = mTextureView.getSurfaceTexture();
         mSurfaceTexture.setDefaultBufferSize(mPreviewSize.getWidth(), mPreviewSize.getHeight());
         Surface previewSurface = new Surface(mSurfaceTexture);
-        mImageReader = ImageReader.newInstance(mPreviewSize.getWidth(), mPreviewSize.getHeight(), ImageFormat.JPEG,1);
+        mImageReader = ImageReader.newInstance(width, height, ImageFormat.YV12, 1);
         mImageReader.setOnImageAvailableListener(mOnImageAvailableListener, mainHandler);
         try {
             mCaptureRequestBuilder = mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW);
             mCaptureRequestBuilder.addTarget(previewSurface);
+            mCaptureRequestBuilder.addTarget(mImageReader.getSurface());
             mCameraDevice.createCaptureSession(Arrays.asList(previewSurface, mImageReader.getSurface()), new CameraCaptureSession.StateCallback() {
                 @Override
                 public void onConfigured(CameraCaptureSession session) {
@@ -201,9 +202,10 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
                     StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
                     if (map != null) {
                         //根据TextureView的尺寸设置预览尺寸
-                        mPreviewSize = getOptimalSize(map.getOutputSizes(SurfaceTexture.class), width, height);
+                        mPreviewSize = getOptimalSize(map.getOutputSizes(ImageFormat.YV12), width, height);
                         this.width = mPreviewSize.getWidth();
                         this.height = mPreviewSize.getHeight();
+                        Log.e("tzh", "setupCamera: " + this.width + "   " + this.height);
                         //获取相机支持的最大拍照尺寸
                         mCaptureSize = Collections.max(Arrays.asList(map.getOutputSizes(ImageFormat.JPEG)), new Comparator<Size>() {
                             @Override
@@ -212,7 +214,6 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
                             }
                         });
                     }
-                    setupImageReader();
                     mCameraID = cameraID;
                     break;
                 }
@@ -220,18 +221,6 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-    }
-
-    private void setupImageReader() {
-        //2代表ImageReader中最多可以获取两帧图像流
-        mImageReader = ImageReader.newInstance(mCaptureSize.getWidth(), mCaptureSize.getHeight(),
-                ImageFormat.JPEG, 2);
-        mImageReader.setOnImageAvailableListener(new ImageReader.OnImageAvailableListener() {
-            @Override
-            public void onImageAvailable(ImageReader reader) {
-//                mCameraHandler.post(new imageSaver(reader.acquireNextImage()));
-            }
-        }, mCameraHandler);
     }
 
     private Size getOptimalSize(Size[] outputSizes, int width, int height) {
@@ -278,23 +267,19 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
             //进行相片存储
 //            mCameraDevice.close();
             //mSurfaceView.setVisibility(View.GONE);//存疑
-            Log.e("tzh", "onImageAvailable: is begin");
             Image image = reader.acquireNextImage();
-            ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-            byte[] bytes = new byte[buffer.remaining()];
-            buffer.get(bytes);
-            if(num % 30 == 0) {
+            if (num % 90 == 0) {
+                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+                byte[] bytes = new byte[buffer.remaining()];
+                buffer.get(bytes);
                 File file = new File("/sdcard/HuiImagicCamera");
-                if(!file.exists() || file.isDirectory()){
-                    try {
-                        boolean newFile = file.createNewFile();
-                        Log.e("tzh", "onImageAvailable: newFile :  " + newFile );
-                    } catch (IOException e) {
-                        Log.e("tzh", "onImageAvailable: " + e.toString() );
-                    }
+                if (!file.exists() || file.isFile()) {
+                    file.mkdirs();
                 }
-                OpencvNatives.DumpYuvToFile(width, height, bytes, "/sdcard/HuiImagicCamera" + File.separator + num + ".nv21");
+                OpencvNatives.DumpYuvToFile(width, height, bytes, "/sdcard/HuiImagicCamera" + File.separator + num + ".yv12");
             }
+            num++;
+            image.close();
 //            final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
 //            if (bitmap != null) {
 //                img_show.setImageBitmap(bitmap);
@@ -302,3 +287,4 @@ public class Camera2 implements SourceInterface, TextureView.SurfaceTextureListe
         }
     };
 }
+

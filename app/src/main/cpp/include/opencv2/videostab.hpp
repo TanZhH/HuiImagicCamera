@@ -55,7 +55,7 @@ paper methods.
 
  1. "Full-Frame Video Stabilization with Motion Inpainting"
      Yasuyuki Matsushita, Eyal Ofek, Weina Ge, Xiaoou Tang, Senior Member, and Heung-Yeung Shum
- 2. "Auto-Directed Video Stabilization with Robust L1 Optimal Camera Paths"
+ 2. "Auto-Directed Video Stabilization with Robust L1 Optimal HuiCamera Paths"
      Matthias Grundmann, Vivek Kwatra, Irfan Essa
 
      @{

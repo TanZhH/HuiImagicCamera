@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.audition.huiimagiccamera.natives.OpencvNatives;
 import com.audition.huiimagiccamera.source.Camera2;
+import com.audition.huiimagiccamera.source.HuiCamera;
+import com.audition.huiimagiccamera.utils.CameraTools;
 
 /**
  * 项  目：   HuiImagicCamera
@@ -28,6 +30,7 @@ import com.audition.huiimagiccamera.source.Camera2;
 public class MainActivity extends BaseActivity {
     private TextureView mTextureView;
     private Camera2 mCamera2;
+    private HuiCamera huiCamera;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,17 +38,33 @@ public class MainActivity extends BaseActivity {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE);
         //细节supportRequestWindowFeature一定要在setContentView之前设置
         setContentView(R.layout.activity_main);
+        //屏幕常亮
+        CameraTools.keepScreenLongLight(this , true);
+        //沉浸式状态栏
         fullScreen();
-        mTextureView = (TextureView) findViewById(R.id.tv_surface);
-        mCamera2 = new Camera2(this);
-        mCamera2.init(mTextureView);
-        mCamera2.start();
+        initView();
+    }
+
+    private void initView() {
+//        mTextureView = (TextureView) findViewById(R.id.tv_surface);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        mCamera2 = new Camera2(this);
+//        mCamera2.init(mTextureView);
+//        mCamera2.start();
+        huiCamera = new HuiCamera(this);
+//        huiCamera.init(mTextureView);
+        huiCamera.start();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mCamera2.stop();
+//        mCamera2.stop();
     }
 
     private void fullScreen(){

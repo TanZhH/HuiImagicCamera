@@ -55,7 +55,7 @@ extern "C" {
   */
 
 /****************************************************************************************\
-*                      Camera Calibration, Pose Estimation and Stereo                    *
+*                      HuiCamera Calibration, Pose Estimation and Stereo                    *
 \****************************************************************************************/
 
 typedef struct CvPOSITObject CvPOSITObject;
@@ -94,7 +94,7 @@ CVAPI(void) cvConvertPointsHomogeneous( const CvMat* src, CvMat* dst );
 enum
 {
     CV_ITERATIVE = 0,
-    CV_EPNP = 1, // F.Moreno-Noguer, V.Lepetit and P.Fua "EPnP: Efficient Perspective-n-Point Camera Pose Estimation"
+    CV_EPNP = 1, // F.Moreno-Noguer, V.Lepetit and P.Fua "EPnP: Efficient Perspective-n-Point HuiCamera Pose Estimation"
     CV_P3P = 2, // X.S. Gao, X.-R. Hou, J. Tang, H.-F. Chang; "Complete Solution Classification for the Perspective-Three-Point Problem"
     CV_DLS = 3 // Joel A. Hesch and Stergios I. Roumeliotis. "A Direct Least-Squares (DLS) Method for PnP"
 };

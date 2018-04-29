@@ -166,7 +166,7 @@ protected:
 
     /** @brief Sets initial camera parameter to refine.
 
-    @param cameras Camera parameters
+    @param cameras HuiCamera parameters
      */
     virtual void setUpInitialCameraParams(const std::vector<CameraParams> &cameras) = 0;
     /** @brief Gets the refined camera parameters.
@@ -204,7 +204,7 @@ protected:
     //Levenberg-Marquardt algorithm termination criteria
     TermCriteria term_criteria_;
 
-    // Camera parameters matrix (CV_64F)
+    // HuiCamera parameters matrix (CV_64F)
     Mat cam_params_;
 
     // Connected images pairs
@@ -329,7 +329,7 @@ enum WaveCorrectKind
 
 /** @brief Tries to make panorama more horizontal (or vertical).
 
-@param rmats Camera rotation matrices.
+@param rmats HuiCamera rotation matrices.
 @param kind Correction kind, see detail::WaveCorrectKind.
  */
 void CV_EXPORTS waveCorrect(std::vector<Mat> &rmats, WaveCorrectKind kind);
