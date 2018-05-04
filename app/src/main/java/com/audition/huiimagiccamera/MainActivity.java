@@ -2,6 +2,7 @@ package com.audition.huiimagiccamera;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +24,9 @@ import com.audition.huiimagiccamera.natives.OpencvNatives;
 import com.audition.huiimagiccamera.source.Camera2;
 import com.audition.huiimagiccamera.source.HuiCamera;
 import com.audition.huiimagiccamera.utils.CameraTools;
+import com.seu.magicfilter.MagicEngine;
+import com.seu.magicfilter.filter.helper.MagicFilterType;
+import com.seu.magicfilter.widget.MagicCameraView;
 
 /**
  * 项  目：   HuiImagicCamera
@@ -27,10 +35,14 @@ import com.audition.huiimagiccamera.utils.CameraTools;
  * 描  述：  MainActivity
  * @author  tanzhuohui
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private TextureView mTextureView;
     private Camera2 mCamera2;
     private HuiCamera huiCamera;
+    private MagicCameraView mCameraView;
+    private MagicEngine magicEngine;
+    private ImageView mSwichImage;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +53,29 @@ public class MainActivity extends BaseActivity {
         //屏幕常亮
         CameraTools.keepScreenLongLight(this , true);
         //沉浸式状态栏
-        fullScreen();
+        CameraTools.fullScreen(this);
         initView();
+        init();
+    }
+
+    private void init() {
+        MagicEngine.Builder builder = new MagicEngine.Builder();
+        magicEngine = builder.build(mCameraView);
+        Point screenSize = new Point();
+        getWindowManager().getDefaultDisplay().getSize(screenSize);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) mCameraView.getLayoutParams();
+        params.width = screenSize.x;
+        params.height = screenSize.y;
+        mCameraView.setLayoutParams(params);
+        magicEngine.setFilter(MagicFilterType.NONE);
+
     }
 
     private void initView() {
 //        mTextureView = (TextureView) findViewById(R.id.tv_surface);
+        mCameraView = (MagicCameraView) findViewById(R.id.glsurfaceview_camera);
+        mSwichImage = (ImageView) findViewById(R.id.iv_swich);
+        mSwichImage.setOnClickListener(this);
     }
 
     @Override
@@ -55,10 +84,9 @@ public class MainActivity extends BaseActivity {
 //        mCamera2 = new Camera2(this);
 //        mCamera2.init(mTextureView);
 //        mCamera2.start();
-        huiCamera = new HuiCamera(this);
+//        huiCamera = new HuiCamera(this);
 //        huiCamera.init(mTextureView);
-        huiCamera.start();
-
+//        huiCamera.start();
     }
 
     @Override
@@ -67,25 +95,16 @@ public class MainActivity extends BaseActivity {
 //        mCamera2.stop();
     }
 
-    private void fullScreen(){
-        Activity activity = this;
-        int statusColor = Color.parseColor("#008000");
-        //针对版本5.x以上的即LOLLIPOP以上的
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            //设置透明状态栏,这样才能让 ContentView 向上
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //设置状态栏颜色
-            window.setStatusBarColor(statusColor);
-            ViewGroup mContentView = (ViewGroup) activity.findViewById(Window.ID_ANDROID_CONTENT);
-            View mChildView = mContentView.getChildAt(0);
-            if (mChildView != null) {
-                //注意不是设置 ContentView 的 FitsSystemWindows, 而是设置 ContentView 的第一个子 View .
-                // 使其不为系统 View 预留空间.不预留空间的话 状态栏就会覆盖布局顶部
-                ViewCompat.setFitsSystemWindows(mChildView, false);
-            }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.iv_swich:
+
+                break;
+            default:
+                break;
         }
+
     }
 }
