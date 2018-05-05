@@ -18,6 +18,7 @@ import com.seu.magicfilter.filter.advanced.MagicBeautyFilter;
 import com.seu.magicfilter.filter.base.MagicCameraInputFilter;
 import com.seu.magicfilter.filter.helper.MagicFilterType;
 import com.seu.magicfilter.helper.SavePictureTask;
+import com.seu.magicfilter.present.Present;
 import com.seu.magicfilter.utils.MagicParams;
 import com.seu.magicfilter.utils.OpenGlUtils;
 import com.seu.magicfilter.utils.Rotation;
@@ -40,9 +41,8 @@ public class MagicCameraView extends MagicBaseView {
 
     private MagicCameraInputFilter cameraInputFilter;
     private MagicBeautyFilter beautyFilter;
-
     private SurfaceTexture surfaceTexture;
-
+    private Present mPresent;
     public MagicCameraView(Context context) {
         this(context, null);
     }
@@ -91,14 +91,15 @@ public class MagicCameraView extends MagicBaseView {
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
         super.onSurfaceChanged(gl, width, height);
-        openCamera();
+        mPresent.openCamera(cameraInputFilter , surfaceTexture);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
         super.onDrawFrame(gl);
-        if(surfaceTexture == null)
+        if(surfaceTexture == null) {
             return;
+        }
         surfaceTexture.updateTexImage();
         if (recordingEnabled) {
             switch (recordingStatus) {
@@ -163,23 +164,24 @@ public class MagicCameraView extends MagicBaseView {
         videoEncoder.setFilter(type);
     }
 
-    private void openCamera(){
-        if(CameraEngine.getCamera() == null) {
-            boolean b = CameraEngine.openCamera();
-        }
-        CameraInfo info = CameraEngine.getCameraInfo();
-        if(info.orientation == 90 || info.orientation == 270){
-            imageWidth = info.previewHeight;
-            imageHeight = info.previewWidth;
-        }else{
-            imageWidth = info.previewWidth;
-            imageHeight = info.previewHeight;
-        }
-        cameraInputFilter.onInputSizeChanged(imageWidth, imageHeight);
-        adjustSize(info.orientation, info.isFront, false);
-        if(surfaceTexture != null)
-            CameraEngine.startPreview(surfaceTexture);
-    }
+//    private void openCamera(){
+//        if(CameraEngine.getCamera() == null) {
+//            boolean b = CameraEngine.openCamera();
+//        }
+//        CameraInfo info = CameraEngine.getCameraInfo();
+//        if(info.orientation == 90 || info.orientation == 270){
+//            imageWidth = info.previewHeight;
+//            imageHeight = info.previewWidth;
+//        }else{
+//            imageWidth = info.previewWidth;
+//            imageHeight = info.previewHeight;
+//        }
+//        cameraInputFilter.onInputSizeChanged(imageWidth, imageHeight);
+//        adjustSize(info.orientation, info.isFront, false);
+//        if(surfaceTexture != null) {
+//            CameraEngine.startPreview(surfaceTexture);
+//        }
+//    }
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
@@ -301,4 +303,7 @@ public class MagicCameraView extends MagicBaseView {
         cameraInputFilter.onBeautyLevelChanged();
     }
 
+    public void setmPresent(Present mPresent) {
+        this.mPresent = mPresent;
+    }
 }

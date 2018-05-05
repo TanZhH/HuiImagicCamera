@@ -187,19 +187,19 @@ public class MagicCameraInputFilter extends GPUImageFilter{
                 setFloat(mParamsLocation, 0.0f);
                 break;
             case 1:
-                setFloat(mParamsLocation, 1.0f);
+                setFloat(mParamsLocation, 0.2f);
                 break;
             case 2:
-                setFloat(mParamsLocation, 0.8f);
+                setFloat(mParamsLocation, 0.4f);
                 break;
             case 3:
                 setFloat(mParamsLocation,0.6f);
                 break;
             case 4:
-                setFloat(mParamsLocation, 0.4f);
+                setFloat(mParamsLocation, 0.8f);
                 break;
             case 5:
-                setFloat(mParamsLocation,0.33f);
+                setFloat(mParamsLocation,1.0f);
                 break;
             default:
                 break;

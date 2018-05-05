@@ -140,7 +140,7 @@ public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceVi
 
     public abstract void savePicture(SavePictureTask savePictureTask);
 
-    protected void adjustSize(int rotation, boolean flipHorizontal, boolean flipVertical){
+    public void adjustSize(int rotation, boolean flipHorizontal, boolean flipVertical){
         float[] textureCords = TextureRotationUtil.getRotation(Rotation.fromInt(rotation),
                 flipHorizontal, flipVertical);
         float[] cube = TextureRotationUtil.CUBE;
@@ -186,5 +186,13 @@ public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceVi
         CENTER_INSIDE,
         CENTER_CROP,
         FIT_XY;
+    }
+
+    public void setImageHeight(int imageHeight) {
+        this.imageHeight = imageHeight;
+    }
+
+    public void setImageWidth(int imageWidth) {
+        this.imageWidth = imageWidth;
     }
 }

@@ -11,12 +11,17 @@ import android.util.Log;
 import android.view.SurfaceView;
 
 import com.seu.magicfilter.camera.utils.CameraUtils;
+import com.seu.magicfilter.filter.base.MagicCameraInputFilter;
+import com.seu.magicfilter.present.Present;
+import com.seu.magicfilter.widget.base.MagicBaseView;
 
 public class CameraEngine {
     private static Camera camera = null;
     private static int cameraID = CameraInfo.CAMERA_FACING_FRONT;
     private static SurfaceTexture surfaceTexture;
     private static SurfaceView surfaceView;
+    private static Present present;
+    private static MagicCameraInputFilter cameraInputFilter;
 
     public static Camera getCamera(){
         return camera;
@@ -51,6 +56,7 @@ public class CameraEngine {
 
     public static void releaseCamera(){
         if(camera != null){
+
             camera.setPreviewCallback(null);
             camera.stopPreview();
             camera.release();
@@ -74,9 +80,32 @@ public class CameraEngine {
 
     public static void switchCamera(){
         releaseCamera();
-        cameraID = cameraID == 0 ? 1 : 0;
-        openCamera(cameraID);
-        startPreview(surfaceTexture);
+        cameraID = cameraID == CameraInfo.CAMERA_FACING_BACK ? CameraInfo.CAMERA_FACING_FRONT : CameraInfo.CAMERA_FACING_BACK;
+        boolean isFilp = cameraID == CameraInfo.CAMERA_FACING_BACK;
+//        openCamera(cameraID);
+//        startPreview(surfaceTexture);
+        openCamera(present , cameraInputFilter , surfaceTexture , isFilp);
+    }
+
+    public static void openCamera(Present present , MagicCameraInputFilter cameraInputFilter
+            , SurfaceTexture surfaceTexture , boolean isFilp){
+        CameraEngine.present = present;
+        CameraEngine.cameraInputFilter = cameraInputFilter;
+        if(CameraEngine.getCamera() == null) {
+            boolean b = CameraEngine.openCamera();
+        }
+        com.seu.magicfilter.camera.utils.CameraInfo info = CameraEngine.getCameraInfo();
+        if(info.orientation == 90 || info.orientation == 270){
+            present.setImageHW(info.previewWidth , info.previewHeight);
+        }else{
+            present.setImageWH(info.previewWidth , info.previewHeight);
+        }
+        cameraInputFilter.onInputSizeChanged(info.previewWidth, info.previewHeight);
+        present.adjustSize(info.orientation, info.isFront, isFilp);
+        present.setSwitchSrc(isFilp);
+        if(surfaceTexture != null) {
+            CameraEngine.startPreview(surfaceTexture);
+        }
     }
 
     private static void setDefaultParameters(){
@@ -146,5 +175,17 @@ public class CameraEngine {
         info.pictureWidth = size.width;
         info.pictureHeight = size.height;
         return info;
+    }
+
+    public static void setCameraInputFilter(MagicCameraInputFilter cameraInputFilter) {
+        CameraEngine.cameraInputFilter = cameraInputFilter;
+    }
+
+    public static void setPresent(Present present) {
+        CameraEngine.present = present;
+    }
+
+    public static int getCameraID() {
+        return cameraID;
     }
 }

@@ -13,15 +13,51 @@
         android:layout_height="match_parent" />
 
     <LinearLayout
-        android:layout_alignParentRight="true"
-        android:layout_margin="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/iv_swich"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/selector_rewardcamera" />
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp">
 
+        <ImageView
+            android:id="@+id/iv_swich"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@mipmap/btn_change_camera_normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_option"
+        android:layout_width="match_parent"
+        android:layout_height="120.0dip"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/halfBlack"
+        android:paddingBottom="5dip"
+        android:gravity="center"
+        android:paddingTop="5dip">
+
+        <ImageView
+            android:id="@+id/btn_camera_beauty"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:scaleType="center"
+            android:src="@drawable/btn_camera_beauty"/>
+
+        <ImageView
+            android:id="@+id/btn_camera_shutter"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:src="@drawable/btn_camera_shutter"/>
+
+        <ImageView
+            android:id="@+id/btn_camera_filter"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:scaleType="center"
+            android:src="@drawable/btn_camera_filter"/>
     </LinearLayout>
 </RelativeLayout>

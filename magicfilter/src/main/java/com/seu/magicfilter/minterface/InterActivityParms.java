@@ -1,4 +1,4 @@
-package com.seu.magicfilter.infa;
+package com.seu.magicfilter.minterface;
 
 /**
  * 创建者：   TANHUIHUI
@@ -8,5 +8,8 @@ package com.seu.magicfilter.infa;
  * 描  述：
  */
 
-public interface interActivityParms {
+public interface InterActivityParms {
+    void setSwicthSrc(boolean isfilp);
+    void setBeatiful();
+    void setSeekBarNum(int num);
 }
