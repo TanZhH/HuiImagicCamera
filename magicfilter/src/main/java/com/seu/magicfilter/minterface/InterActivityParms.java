@@ -1,0 +1,12 @@
+package com.seu.magicfilter.infa;
+
+/**
+ * 创建者：   TANHUIHUI
+ * 项  目：   HuiImagicCamera
+ * 包  名：   com.seu.magicfilter.infa
+ * 创建日期： 2018/5/4
+ * 描  述：
+ */
+
+public interface interActivityParms {
+}
