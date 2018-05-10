@@ -1,5 +1,9 @@
 package com.seu.magicfilter.minterface;
 
+import android.graphics.Bitmap;
+
+import java.io.File;
+
 /**
  * 创建者：   TANHUIHUI
  * 项  目：   HuiImagicCamera
@@ -12,4 +16,5 @@ public interface InterActivityParms {
     void setSwicthSrc(boolean isfilp);
     void setBeatiful();
     void setSeekBarNum(int num);
+    void setPhoto(File file);
 }

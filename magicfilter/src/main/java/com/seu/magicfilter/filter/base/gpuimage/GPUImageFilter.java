@@ -150,8 +150,9 @@ public class GPUImageFilter {
     public int onDrawFrame(final int textureId) {
 		GLES20.glUseProgram(mGLProgId);
 		runPendingOnDrawTasks();
-		if (!mIsInitialized) 
-			return OpenGlUtils.NOT_INIT;
+		if (!mIsInitialized) {
+            return OpenGlUtils.NOT_INIT;
+        }
 		
 		mGLCubeBuffer.position(0);
 		GLES20.glVertexAttribPointer(mGLAttribPosition, 2, GLES20.GL_FLOAT, false, 0, mGLCubeBuffer);

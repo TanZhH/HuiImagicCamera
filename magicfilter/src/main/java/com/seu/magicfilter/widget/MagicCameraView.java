@@ -35,7 +35,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by why8222 on 2016/2/25.
+ *
+ * @author why8222
+ * @date 2016/2/25
  */
 public class MagicCameraView extends MagicBaseView {
 
@@ -86,6 +88,8 @@ public class MagicCameraView extends MagicBaseView {
                 surfaceTexture.setOnFrameAvailableListener(onFrameAvailableListener);
             }
         }
+
+        lastTime = System.currentTimeMillis();
     }
 
     @Override
@@ -94,8 +98,25 @@ public class MagicCameraView extends MagicBaseView {
         mPresent.openCamera(cameraInputFilter , surfaceTexture);
     }
 
+
+    private static long lastTime = 0;
+    private static int frameCount = 0;
+    private void fps()
+    {
+        ++frameCount;
+        long curTime = System.currentTimeMillis();
+        // 取固定时间间隔为1秒
+        if (curTime - lastTime > 1000)
+        {
+            Log.i("tzhfps", "fps:  " + frameCount);
+            frameCount = 0;
+            lastTime = curTime;
+        }
+    }
+
     @Override
     public void onDrawFrame(GL10 gl) {
+        fps();
         super.onDrawFrame(gl);
         if(surfaceTexture == null) {
             return;
@@ -231,8 +252,9 @@ public class MagicCameraView extends MagicBaseView {
         int height = bitmap.getHeight();
         int[] mFrameBuffers = new int[1];
         int[] mFrameBufferTextures = new int[1];
-        if(beautyFilter == null)
+        if(beautyFilter == null) {
             beautyFilter = new MagicBeautyFilter();
+        }
         beautyFilter.init();
         beautyFilter.onDisplaySizeChanged(width, height);
         beautyFilter.onInputSizeChanged(width, height);
@@ -268,17 +290,18 @@ public class MagicCameraView extends MagicBaseView {
                 .order(ByteOrder.nativeOrder())
                 .asFloatBuffer();
         gLCubeBuffer.put(TextureRotationUtil.CUBE).position(0);
-        if(isRotated)
+        if(isRotated) {
             gLTextureBuffer.put(TextureRotationUtil.getRotation(Rotation.NORMAL, false, false)).position(0);
-        else
+        } else {
             gLTextureBuffer.put(TextureRotationUtil.getRotation(Rotation.NORMAL, false, true)).position(0);
+        }
 
 
         if(filter == null){
             beautyFilter.onDrawFrame(textureId, gLCubeBuffer, gLTextureBuffer);
         }else{
-            beautyFilter.onDrawFrame(textureId);
-            filter.onDrawFrame(mFrameBufferTextures[0], gLCubeBuffer, gLTextureBuffer);
+            int id = beautyFilter.onDrawFrame(textureId , gLCubeBuffer, gLTextureBuffer);
+            filter.onDrawFrame(textureId, gLCubeBuffer, gLTextureBuffer);
         }
         IntBuffer ib = IntBuffer.allocate(width * height);
         GLES20.glReadPixels(0, 0, width, height, GLES20.GL_RGBA, GLES20.GL_UNSIGNED_BYTE, ib);

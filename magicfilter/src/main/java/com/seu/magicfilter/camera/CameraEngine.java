@@ -1,6 +1,7 @@
 package com.seu.magicfilter.camera;
 
 import java.io.IOException;
+import java.util.List;
 
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
@@ -123,6 +124,19 @@ public class CameraEngine {
     }
 
     private static Size getPreviewSize(){
+        List<Size> supportedPreviewSizes = camera.getParameters().getSupportedPreviewSizes();
+        for (Size size : supportedPreviewSizes) {
+            Log.i("tzh", "getPreviewSize: " + size.width + "  " + size.height);
+        }
+//        List<int[]> supportedPreviewFpsRange = camera.getParameters().getSupportedPreviewFpsRange();
+//        for (int[] fps : supportedPreviewFpsRange) {
+//            for (int i = 0; i < fps.length; i++) {
+//                Log.i("tzh", "getPreviewSize fps ++++: " + fps[i] + "    I:" + i);
+//            }
+//        }
+//        Parameters parameters = camera.getParameters();
+//        parameters.setPreviewSize(320,240);
+//        camera.setParameters(parameters);
         return camera.getParameters().getPreviewSize();
     }
 
@@ -148,7 +162,9 @@ public class CameraEngine {
     }
 
     public static void stopPreview(){
-        camera.stopPreview();
+        if(camera!=null) {
+            camera.stopPreview();
+        }
     }
 
     public static void setRotation(int rotation){
@@ -169,6 +185,7 @@ public class CameraEngine {
         Camera.getCameraInfo(cameraID, cameraInfo);
         info.previewWidth = size.width;
         info.previewHeight = size.height;
+        Log.i("tzh", "getCameraInfo: " + size.width + "     " + size.height);
         info.orientation = cameraInfo.orientation;
         info.isFront = cameraID == CameraInfo.CAMERA_FACING_FRONT;
         size = getPictureSize();

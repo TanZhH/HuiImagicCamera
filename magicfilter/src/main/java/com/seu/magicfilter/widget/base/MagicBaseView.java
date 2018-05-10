@@ -21,7 +21,9 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
 /**
- * Created by why8222 on 2016/2/25.
+ *
+ * @author why8222
+ * @date 2016/2/25
  */
 public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceView.Renderer{
     /**
@@ -112,13 +114,15 @@ public abstract class MagicBaseView extends GLSurfaceView implements GLSurfaceVi
         queueEvent(new Runnable() {
             @Override
             public void run() {
-                if (filter != null)
+                if (filter != null) {
                     filter.destroy();
+                }
                 filter = null;
                 filter = MagicFilterFactory.initFilters(type);
-                if (filter != null)
+                if (filter != null) {
                     filter.init();
-//                onFilterChanged();
+                }
+                onFilterChanged();
             }
         });
         requestRender();

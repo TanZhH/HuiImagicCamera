@@ -1,9 +1,11 @@
 package com.seu.magicfilter.present;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.SurfaceTexture;
 import android.hardware.Camera;
 import android.opengl.GLSurfaceView;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
@@ -13,8 +15,15 @@ import com.seu.magicfilter.R;
 import com.seu.magicfilter.camera.CameraEngine;
 import com.seu.magicfilter.camera.utils.CameraInfo;
 import com.seu.magicfilter.filter.base.MagicCameraInputFilter;
+import com.seu.magicfilter.filter.helper.MagicFilterType;
+import com.seu.magicfilter.helper.SavePictureTask;
 import com.seu.magicfilter.minterface.InterActivityParms;
 import com.seu.magicfilter.widget.base.MagicBaseView;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * @author tanzhuohui
@@ -91,5 +100,38 @@ public class Present {
             whith = 5;
         }
         magicEngine.setBeautyLevel(whith);
+    }
+
+    public void setFilter(MagicFilterType magicFilterType){
+        magicEngine.setFilter(magicFilterType);
+    }
+
+    public void takePhoto(){
+        magicEngine.savePicture(getOutputMediaFile(), new SavePictureTask.OnPictureSaveListener() {
+            @Override
+            public void onSaved(String result) {
+
+            }
+
+            @Override
+            public void setphoto(File file) {
+                interActivityParms.setPhoto(file);
+            }
+        });
+    }
+
+    private File getOutputMediaFile() {
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), "HuiImagicCamera");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                return null;
+            }
+        }
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINESE).format(new Date());
+        File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
+                "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
     }
 }

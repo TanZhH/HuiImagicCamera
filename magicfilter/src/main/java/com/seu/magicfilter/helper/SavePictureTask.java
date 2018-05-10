@@ -36,16 +36,19 @@ public class SavePictureTask extends AsyncTask<Bitmap, Integer, String>{
 
 	@Override
 	protected void onPostExecute(final String result) {
-		if(result != null)
+		if(result != null) {
 			MediaScannerConnection.scanFile(MagicParams.context,
-	                new String[] {result}, null,
-	                new MediaScannerConnection.OnScanCompletedListener() {
-	                    @Override
-	                    public void onScanCompleted(final String path, final Uri uri) {
-	                        if (onPictureSaveListener != null)
-                                onPictureSaveListener.onSaved(result);
-	                    }
-            	});
+					new String[]{result}, null,
+					new MediaScannerConnection.OnScanCompletedListener() {
+						@Override
+						public void onScanCompleted(final String path, final Uri uri) {
+							if (onPictureSaveListener != null) {
+								onPictureSaveListener.onSaved(result);
+							}
+						}
+					});
+			onPictureSaveListener.setphoto(file);
+		}
 	}
 
 	@Override
@@ -76,5 +79,6 @@ public class SavePictureTask extends AsyncTask<Bitmap, Integer, String>{
 	
 	public interface OnPictureSaveListener{
 		void onSaved(String result);
+		void setphoto(File file);
 	}
 }

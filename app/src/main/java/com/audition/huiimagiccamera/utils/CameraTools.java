@@ -1,9 +1,13 @@
 package com.audition.huiimagiccamera.utils;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewCompat;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +24,7 @@ import android.view.WindowManager;
  */
 
 public class CameraTools {
+    public static final int PERMISSION = 0x01;
     /**
      * 是否使屏幕常亮
      *
@@ -57,5 +62,18 @@ public class CameraTools {
                 ViewCompat.setFitsSystemWindows(mChildView, false);
             }
         }
+    }
+
+    //动态申请权限
+    public static boolean requestPower(Context context) {
+        //判断是否已经赋予权限
+        if (ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions((Activity) context,
+                        new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION);
+                return false;
+        }
+        return true;
     }
 }
