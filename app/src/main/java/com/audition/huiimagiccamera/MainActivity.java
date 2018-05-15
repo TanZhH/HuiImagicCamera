@@ -3,12 +3,14 @@ package com.audition.huiimagiccamera;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,6 +20,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.TextureView;
@@ -36,6 +39,7 @@ import com.audition.huiimagiccamera.source.Camera2;
 import com.audition.huiimagiccamera.source.HuiCamera;
 import com.audition.huiimagiccamera.utils.CameraTools;
 import com.audition.huiimagiccamera.utils.FilterTypeHelper;
+import com.audition.huiimagiccamera.utils.PhotoTools;
 import com.audition.huiimagiccamera.view.BaseActivity;
 import com.seu.magicfilter.MagicEngine;
 import com.seu.magicfilter.filter.helper.MagicFilterType;
@@ -44,6 +48,9 @@ import com.seu.magicfilter.present.Present;
 import com.seu.magicfilter.widget.MagicCameraView;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+
+import me.kareluo.imaging.IMGEditActivity;
 
 /**
  * 项  目：   HuiImagicCamera
@@ -74,6 +81,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     private FilterAdapter mFilterAdapter;
     private ImageView shutter;
     private ImageView takePhoto;
+    private static final int REQUEST_CODE_PICK_IMAGE = 0x03;
 
     public MainActivity() {
     }
@@ -234,7 +242,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                 mPresent.takePhoto();
                 break;
             case R.id.btn_camera_photo:
-
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,"image/*");
+                startActivityForResult(intent , REQUEST_CODE_PICK_IMAGE);
                 break;
             default:
                 break;
@@ -312,11 +322,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         });
     }
 
-    @Override
-    public void setBeatiful() {
-
-    }
-
     private void showBeatiful() {
         if (popupWindow == null) {
             View contentView = LayoutInflater.from(this).inflate(R.layout.popuplayout, null);
@@ -365,7 +370,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         takePhoto.setImageBitmap(bitmap);
     }
 
-
-
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case REQUEST_CODE_PICK_IMAGE:
+                if(data != null){
+                    Uri uri = data.getData();
+                    if(uri != null){
+                        Intent intent = new Intent(MainActivity.this , IMGEditActivity.class);
+                        String path = PhotoTools.getPath(this , uri);
+                        Uri uri1 = Uri.fromFile(new File(path));
+                        intent.putExtra(IMGEditActivity.EXTRA_IMAGE_URI, uri1);
+                        startActivity(intent);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

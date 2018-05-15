@@ -55,6 +55,12 @@ DumpYuvToFile(JNIEnv *env, jclass jclass1, jint width, jint height, jbyteArray y
     }
 }
 
+void face2(JNIEnv *env, jclass jclass1 , jstring path){
+
+
+}
+
+
 /**
 * 方法对应表
 */

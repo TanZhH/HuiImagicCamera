@@ -14,7 +14,6 @@ import java.io.File;
 
 public interface InterActivityParms {
     void setSwicthSrc(boolean isfilp);
-    void setBeatiful();
     void setSeekBarNum(int num);
     void setPhoto(File file);
 }
