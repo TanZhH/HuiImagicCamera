@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:visibility="visible">
 
         <ViewSwitcher
@@ -132,6 +132,31 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_sb2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <SeekBar
+            android:id="@+id/sb_mopi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progressDrawable="@drawable/image_seekbar_bg"
+            android:thumb="@drawable/image_seekbar_thumb"
+            android:layout_marginBottom="15dp"
+            />
+
+        <SeekBar
+            android:id="@+id/sb_meibai"
+            android:progressDrawable="@drawable/image_seekbar_bg"
+            android:thumb="@drawable/image_seekbar_thumb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <RadioGroup
         android:id="@+id/rg_modes"
         android:layout_width="match_parent"
@@ -140,6 +165,21 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="20dp">
+
+        <RadioButton
+            android:id="@+id/beautiful"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@mipmap/ic_camera_beauty_pressed"
+            android:contentDescription="@string/image_beautiful"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:button="@null"
+            android:textColor="#FFF" />
+
+        <Space
+            android:layout_width="@dimen/image_mode_space"
+            android:layout_height="wrap_content" />
 
         <RadioButton
             android:id="@+id/rb_doodle"

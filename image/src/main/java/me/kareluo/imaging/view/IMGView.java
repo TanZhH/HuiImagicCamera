@@ -358,6 +358,8 @@ public class IMGView extends FrameLayout implements Runnable, ScaleGestureDetect
             case MotionEvent.ACTION_CANCEL:
                 postDelayed(this, 1200);
                 break;
+            default:
+                break;
         }
         return onTouch(event);
     }
@@ -393,6 +395,8 @@ public class IMGView extends FrameLayout implements Runnable, ScaleGestureDetect
                 mImage.onTouchUp(getScrollX(), getScrollY());
                 onHoming();
                 break;
+            default:
+                break;
         }
 
         return handled;
@@ -412,6 +416,8 @@ public class IMGView extends FrameLayout implements Runnable, ScaleGestureDetect
             case MotionEvent.ACTION_UP:
             case MotionEvent.ACTION_CANCEL:
                 return mPen.isIdentity(event.getPointerId(0)) && onPathDone();
+            default:
+                break;
         }
         return false;
     }

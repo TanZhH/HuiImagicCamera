@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioGroup;
+import android.widget.SeekBar;
 import android.widget.ViewSwitcher;
 
 import me.kareluo.imaging.core.IMGMode;
 import me.kareluo.imaging.core.IMGText;
+import me.kareluo.imaging.myinterface.BeautifulInterface;
 import me.kareluo.imaging.view.IMGColorGroup;
 import me.kareluo.imaging.view.IMGView;
 
@@ -44,10 +46,51 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
     public static final int OP_SUB_MOSAIC = 1;
 
+    private static BeautifulInterface beautifulInterface;
+
+    private Bitmap bitmap;
+
+    private SeekBar.OnSeekBarChangeListener mopiSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            Bitmap bitmap2 = beautifulInterface.setMopi(IMGEditBaseActivity.this.bitmap, seekBar.getProgress());
+            mImgView.setImageBitmap(bitmap2);
+        }
+    };
+
+    private SeekBar.OnSeekBarChangeListener meibaiSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
+        @Override
+        public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+        }
+
+        @Override
+        public void onStartTrackingTouch(SeekBar seekBar) {
+
+        }
+
+        @Override
+        public void onStopTrackingTouch(SeekBar seekBar) {
+            Bitmap bitmap3 = beautifulInterface.setMeibai(IMGEditBaseActivity.this.bitmap, seekBar.getProgress());
+            mImgView.setImageBitmap(bitmap3);
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bitmap bitmap = getBitmap();
+        bitmap = getBitmap();
         if (bitmap != null) {
             Log.e("tzh", "onCreate: bitmap is not null");
             setContentView(R.layout.image_edit_activity);
@@ -75,6 +118,11 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
         mColorGroup.setOnCheckedChangeListener(this);
 
         mLayoutOpSub = findViewById(R.id.layout_op_sub);
+
+        SeekBar seekBar1 = findViewById(R.id.sb_mopi);
+        SeekBar seekBar2 = findViewById(R.id.sb_meibai);
+        seekBar1.setOnSeekBarChangeListener(mopiSeekBarChangeListener);
+        seekBar2.setOnSeekBarChangeListener(meibaiSeekBarChangeListener);
     }
 
     @Override
@@ -102,6 +150,8 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
             onResetClipClick();
         } else if (vid == R.id.ib_clip_rotate) {
             onRotateClipClick();
+        } else if(vid == R.id.beautiful){
+            showBeautiful();
         }
     }
 
@@ -120,10 +170,13 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
                 mModeGroup.clearCheck();
                 setOpSubDisplay(OP_HIDE);
                 break;
+            default:
+                break;
         }
     }
 
     public void onTextModeClick() {
+        findViewById(R.id.ll_sb2).setVisibility(View.GONE);
         if (mTextDialog == null) {
             mTextDialog = new IMGTextEditDialog(this, this);
             mTextDialog.setOnShowListener(this);
@@ -182,6 +235,13 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
     public abstract void onColorChanged(int checkedColor);
 
+    public abstract void showBeautiful();
+
+
     @Override
     public abstract void onText(IMGText text);
+
+    public static void setBeautifulInterface(BeautifulInterface beautifulInterface) {
+        IMGEditBaseActivity.beautifulInterface = beautifulInterface;
+    }
 }

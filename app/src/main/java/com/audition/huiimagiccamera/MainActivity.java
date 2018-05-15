@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.audition.huiimagiccamera.adapter.FilterAdapter;
 import com.audition.huiimagiccamera.source.Camera2;
 import com.audition.huiimagiccamera.source.HuiCamera;
+import com.audition.huiimagiccamera.utils.BeautifulImp;
 import com.audition.huiimagiccamera.utils.CameraTools;
 import com.audition.huiimagiccamera.utils.FilterTypeHelper;
 import com.audition.huiimagiccamera.utils.PhotoTools;
@@ -51,6 +52,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 import me.kareluo.imaging.IMGEditActivity;
+import me.kareluo.imaging.myinterface.BeautifulInterface;
 
 /**
  * 项  目：   HuiImagicCamera
@@ -381,6 +383,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                         String path = PhotoTools.getPath(this , uri);
                         Uri uri1 = Uri.fromFile(new File(path));
                         intent.putExtra(IMGEditActivity.EXTRA_IMAGE_URI, uri1);
+                        BeautifulInterface beautifulInterface = new BeautifulImp();
+                        IMGEditActivity.setBeautifulInterface(beautifulInterface);
                         startActivity(intent);
                     }
                 }

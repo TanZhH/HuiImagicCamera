@@ -6,6 +6,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.widget.RadioGroup;
 
 import me.kareluo.imaging.core.IMGMode;
 import me.kareluo.imaging.core.IMGText;
@@ -19,7 +21,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 /**
- * Created by felix on 2017/11/14 下午2:26.
+ * @author felix
+ * @date 2017/11/14 下午2:26
  */
 
 public class IMGEditActivity extends IMGEditBaseActivity {
@@ -32,6 +35,7 @@ public class IMGEditActivity extends IMGEditBaseActivity {
 
     public static final String EXTRA_IMAGE_SAVE_PATH = "IMAGE_SAVE_PATH";
 
+    public static boolean isShow = false;
     @Override
     public void onCreated() {
 
@@ -104,6 +108,7 @@ public class IMGEditActivity extends IMGEditBaseActivity {
 
     @Override
     public void onModeClick(IMGMode mode) {
+        findViewById(R.id.ll_sb2).setVisibility(View.GONE);
         IMGMode cm = mImgView.getMode();
         if (cm == mode) {
             mode = IMGMode.NONE;
@@ -186,5 +191,19 @@ public class IMGEditActivity extends IMGEditBaseActivity {
     @Override
     public void onColorChanged(int checkedColor) {
         mImgView.setPenColor(checkedColor);
+    }
+
+    @Override
+    public void showBeautiful() {
+        if(!isShow) {
+            mImgView.setMode(IMGMode.NONE);
+            updateModeUI();
+            ((RadioGroup)findViewById(R.id.rg_modes)).check(R.id.beautiful);
+            findViewById(R.id.ll_sb2).setVisibility(View.VISIBLE);
+            isShow = true;
+        }else {
+            findViewById(R.id.ll_sb2).setVisibility(View.GONE);
+            isShow = false;
+        }
     }
 }
