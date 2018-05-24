@@ -22,8 +22,8 @@ public class BeautifulImp implements BeautifulInterface {
     public Bitmap setMopi(Bitmap bitmap, int progress) {
         ByteBuffer byteBuffer = MagicJni.jniStoreBitmapData(bitmap);
         MagicJni.jniInitMagicBeautify(byteBuffer);
-        Log.e("tzh", "setMopi: " + progress/20);
-        MagicJni.jniStartSkinSmooth(progress/20);
+        Log.e("tzh", "setMopi: " + progress +"     "+ progress/10);
+        MagicJni.jniStartSkinSmooth((float) (progress/10));
         return MagicJni.jniGetBitmapFromStoredBitmapData(byteBuffer);
     }
 
@@ -32,7 +32,7 @@ public class BeautifulImp implements BeautifulInterface {
         ByteBuffer byteBuffer = MagicJni.jniStoreBitmapData(bitmap);
         MagicJni.jniInitMagicBeautify(byteBuffer);
         Log.e("tzh", "setmeibai: " + progress/20);
-        MagicJni.jniStartWhiteSkin(progress/20);
+        MagicJni.jniStartWhiteSkin((float)(progress/20));
         return MagicJni.jniGetBitmapFromStoredBitmapData(byteBuffer);
     }
 }

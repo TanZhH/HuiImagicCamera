@@ -45,9 +45,9 @@ public class IMGTextEditDialog extends Dialog implements View.OnClickListener,
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mColorGroup = findViewById(R.id.cg_colors);
+        mColorGroup = (IMGColorGroup) findViewById(R.id.cg_colors);
         mColorGroup.setOnCheckedChangeListener(this);
-        mEditText = findViewById(R.id.et_text);
+        mEditText = (EditText) findViewById(R.id.et_text);
 
         findViewById(R.id.tv_cancel).setOnClickListener(this);
         findViewById(R.id.tv_done).setOnClickListener(this);

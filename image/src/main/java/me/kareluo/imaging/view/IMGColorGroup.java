@@ -21,7 +21,7 @@ public class IMGColorGroup extends RadioGroup {
 
     public int getCheckColor() {
         int checkedId = getCheckedRadioButtonId();
-        IMGColorRadio radio = findViewById(checkedId);
+        IMGColorRadio radio = (IMGColorRadio) findViewById(checkedId);
         if (radio != null) {
             return radio.getColor();
         }

@@ -108,19 +108,19 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
     }
 
     private void initViews() {
-        mImgView = findViewById(R.id.image_canvas);
-        mModeGroup = findViewById(R.id.rg_modes);
+        mImgView = (IMGView) findViewById(R.id.image_canvas);
+        mModeGroup = (RadioGroup) findViewById(R.id.rg_modes);
 
-        mOpSwitcher = findViewById(R.id.vs_op);
-        mOpSubSwitcher = findViewById(R.id.vs_op_sub);
+        mOpSwitcher = (ViewSwitcher) findViewById(R.id.vs_op);
+        mOpSubSwitcher = (ViewSwitcher) findViewById(R.id.vs_op_sub);
 
-        mColorGroup = findViewById(R.id.cg_colors);
+        mColorGroup = (IMGColorGroup) findViewById(R.id.cg_colors);
         mColorGroup.setOnCheckedChangeListener(this);
 
         mLayoutOpSub = findViewById(R.id.layout_op_sub);
 
-        SeekBar seekBar1 = findViewById(R.id.sb_mopi);
-        SeekBar seekBar2 = findViewById(R.id.sb_meibai);
+        SeekBar seekBar1 = (SeekBar) findViewById(R.id.sb_mopi);
+        SeekBar seekBar2 = (SeekBar) findViewById(R.id.sb_meibai);
         seekBar1.setOnSeekBarChangeListener(mopiSeekBarChangeListener);
         seekBar2.setOnSeekBarChangeListener(meibaiSeekBarChangeListener);
     }

@@ -14,6 +14,7 @@ import com.seu.magicfilter.filter.helper.MagicFilterType;
 public class FilterTypeHelper {
     public static final MagicFilterType[] types = new MagicFilterType[]{
             MagicFilterType.NONE,
+            MagicFilterType.SKINWHITEN,
             MagicFilterType.CRAYON,
             MagicFilterType.SKETCH,
             MagicFilterType.FAIRYTALE,
@@ -21,7 +22,6 @@ public class FilterTypeHelper {
             MagicFilterType.SUNSET,
             MagicFilterType.WHITECAT,
             MagicFilterType.BLACKCAT,
-            MagicFilterType.SKINWHITEN,
             MagicFilterType.HEALTHY,
             MagicFilterType.SWEETS,
             MagicFilterType.ROMANCE,

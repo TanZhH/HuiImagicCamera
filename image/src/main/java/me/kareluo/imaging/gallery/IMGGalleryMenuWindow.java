@@ -54,7 +54,7 @@ public class IMGGalleryMenuWindow extends PopupWindow {
         setBackgroundDrawable(new ColorDrawable(0x60000000));
 
         mAdapter = new MenuAdapter();
-        mMenuRecyclerView = contentView.findViewById(R.id.image_rv_menu);
+        mMenuRecyclerView = (RecyclerView) contentView.findViewById(R.id.image_rv_menu);
         mMenuRecyclerView.setAdapter(mAdapter);
     }
 
@@ -155,9 +155,9 @@ public class IMGGalleryMenuWindow extends PopupWindow {
 
             this.callback = callback;
 
-            imageView = itemView.findViewById(R.id.sdv_image);
-            textView = itemView.findViewById(R.id.tv_name);
-            radioButton = itemView.findViewById(R.id.rb_select);
+            imageView = (SimpleDraweeView) itemView.findViewById(R.id.sdv_image);
+            textView = (TextView) itemView.findViewById(R.id.tv_name);
+            radioButton = (RadioButton) itemView.findViewById(R.id.rb_select);
 
             itemView.setOnClickListener(this);
         }

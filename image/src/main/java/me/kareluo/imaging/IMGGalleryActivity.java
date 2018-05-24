@@ -75,14 +75,14 @@ public class IMGGalleryActivity extends AppCompatActivity implements View.OnClic
             mGalleryMode = new IMGChooseMode();
         }
 
-        mRecyclerView = findViewById(R.id.rv_images);
+        mRecyclerView = (RecyclerView) findViewById(R.id.rv_images);
         mRecyclerView.setAdapter(mAdapter = new ImageAdapter());
 
         new IMGScanTask(this).execute();
 
         mFooterView = findViewById(R.id.layout_footer);
 
-        mAlbumFolderView = findViewById(R.id.tv_album_folder);
+        mAlbumFolderView = (TextView) findViewById(R.id.tv_album_folder);
         mAlbumFolderView.setOnClickListener(this);
     }
 
@@ -257,8 +257,8 @@ public class IMGGalleryActivity extends AppCompatActivity implements View.OnClic
             super(itemView);
             mCallback = callback;
 
-            mCheckBox = itemView.findViewById(R.id.cb_box);
-            mImageView = itemView.findViewById(R.id.sdv_image);
+            mCheckBox = (CheckBox) itemView.findViewById(R.id.cb_box);
+            mImageView = (SimpleDraweeView) itemView.findViewById(R.id.sdv_image);
 
             mCheckBox.setOnClickListener(this);
             itemView.setOnClickListener(this);

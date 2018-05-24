@@ -336,7 +336,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             popupWindow.setOutsideTouchable(true);
         }
         mSeekBar.setSecondaryProgress(100);
-        popupWindow.showAsDropDown(findViewById(R.id.ll_option), 0, 20, Gravity.CENTER);
+        popupWindow.showAtLocation(findViewById(R.id.rl_parents), 0, -100, Gravity.CENTER);
     }
 
     @Override
