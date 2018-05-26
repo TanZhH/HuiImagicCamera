@@ -13,7 +13,9 @@ import android.widget.RadioButton;
 import me.kareluo.imaging.R;
 
 /**
- * Created by felix on 2017/12/1 下午2:50.
+ *
+ * @author felix
+ * @date 2017/12/1 下午2:50
  */
 
 public class IMGColorRadio extends RadioButton implements ValueAnimator.AnimatorUpdateListener {

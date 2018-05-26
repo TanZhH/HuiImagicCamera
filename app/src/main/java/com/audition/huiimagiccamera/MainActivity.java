@@ -102,6 +102,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         initView();
         takeFirstPhoto();
         init();
+        Log.e("tzh", "onCreate:  create");
     }
 
     private void takeFirstPhoto() {
@@ -215,6 +216,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
 //        huiCamera = new HuiCamera(this);
 //        huiCamera.init(mTextureView);
 //        huiCamera.start();
+        Log.e("tzh", "onResume:  ");
+
     }
 
     @Override
@@ -222,8 +225,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         super.onPause();
         mPresent.releaseCamera();
 //        mCamera2.stop();
+        Log.e("tzh", "onPause:  ");
+
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("tzh", "onDestroy:  ");
+
+    }
 
     @Override
     public void onClick(View v) {

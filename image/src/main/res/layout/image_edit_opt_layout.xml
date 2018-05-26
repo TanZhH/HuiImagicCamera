@@ -52,13 +52,14 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:visibility="visible">
 
         <ViewSwitcher
             android:id="@+id/vs_op_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:measureAllChildren="true">
 
             <me.kareluo.imaging.view.IMGColorGroup
@@ -136,7 +137,7 @@
         android:id="@+id/ll_sb2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical">
 
         <SeekBar

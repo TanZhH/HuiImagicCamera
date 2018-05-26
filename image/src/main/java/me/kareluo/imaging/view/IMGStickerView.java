@@ -237,6 +237,8 @@ public abstract class IMGStickerView extends ViewGroup implements IMGSticker, Vi
                     return true;
                 }
                 break;
+            default:
+                break;
         }
 
         return handled | super.onTouchEvent(event);

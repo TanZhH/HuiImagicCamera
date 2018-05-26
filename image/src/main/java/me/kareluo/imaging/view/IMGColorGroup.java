@@ -6,7 +6,9 @@ import android.util.AttributeSet;
 import android.widget.RadioGroup;
 
 /**
- * Created by felix on 2017/12/1 下午3:07.
+ *
+ * @author felix
+ * @date 2017/12/1 下午3:07
  */
 
 public class IMGColorGroup extends RadioGroup {

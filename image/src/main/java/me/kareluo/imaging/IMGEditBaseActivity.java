@@ -92,13 +92,11 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         bitmap = getBitmap();
         if (bitmap != null) {
-            Log.e("tzh", "onCreate: bitmap is not null");
             setContentView(R.layout.image_edit_activity);
             initViews();
             mImgView.setImageBitmap(bitmap);
             onCreated();
         } else {
-            Log.e("tzh", "onCreate: bitmap is null");
             finish();
         }
     }
@@ -156,6 +154,8 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
     }
 
     public void updateModeUI() {
+        findViewById(R.id.layout_op_sub).setVisibility(View.VISIBLE);
+        findViewById(R.id.vs_op_sub).setVisibility(View.VISIBLE);
         IMGMode mode = mImgView.getMode();
         switch (mode) {
             case DOODLE:

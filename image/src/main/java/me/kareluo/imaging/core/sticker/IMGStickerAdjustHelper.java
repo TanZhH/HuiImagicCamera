@@ -86,6 +86,8 @@ public class IMGStickerAdjustHelper implements View.OnTouchListener {
                 mRadius = radius;
 
                 return true;
+                default:
+                    break;
         }
         return false;
     }

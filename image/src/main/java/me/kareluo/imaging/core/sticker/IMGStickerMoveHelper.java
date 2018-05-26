@@ -36,6 +36,8 @@ public class IMGStickerMoveHelper {
                 v.setTranslationX(mView.getTranslationX() + dxy[0]);
                 v.setTranslationY(mView.getTranslationY() + dxy[1]);
                 return true;
+            default:
+                break;
         }
         return false;
     }

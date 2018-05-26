@@ -32,7 +32,9 @@ import me.kareluo.imaging.core.sticker.IMGSticker;
 import me.kareluo.imaging.core.sticker.IMGStickerPortrait;
 
 /**
- * Created by felix on 2017/11/14 下午6:43.
+ *
+ * @author felix
+ * @date 2017/11/14 下午6:43
  */
 // TODO clip外不加入path
 public class IMGView extends FrameLayout implements Runnable, ScaleGestureDetector.OnScaleGestureListener,
