@@ -74,9 +74,8 @@ public class CameraEngine {
     }
 
     public Parameters getParameters(){
-        if(camera != null) {
+        if(camera != null)
             camera.getParameters();
-        }
         return null;
     }
 

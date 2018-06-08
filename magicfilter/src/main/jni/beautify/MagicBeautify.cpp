@@ -90,6 +90,7 @@ void MagicBeautify::_startBeauty(float smoothlevel, float whitenlevel){
 
 void MagicBeautify::_startWhiteSkin(float whitenlevel){
 	float a = log(whitenlevel);
+	//美白肌肤
 	for(int i = 0; i < mImageHeight; i++){
 		for(int j = 0; j < mImageWidth; j++){
 			int offset = i*mImageWidth+j;
@@ -110,42 +111,43 @@ void MagicBeautify::_startSkinSmooth(float smoothlevel){
 		LOGE("not init correctly");
 		return;
 	}
-	Conversion::RGBToYCbCr((uint8_t*)mImageData_rgb, mImageData_yuv, mImageWidth * mImageHeight);
+	//磨皮肌肤
+                                    	Conversion::RGBToYCbCr((uint8_t*)mImageData_rgb, mImageData_yuv, mImageWidth * mImageHeight);
 
-	int radius = mImageWidth > mImageHeight ? mImageWidth * 0.02 : mImageHeight * 0.02;
+                                    	int radius = mImageWidth > mImageHeight ? mImageWidth * 0.02 : mImageHeight * 0.02;
 
-	for(int i = 1; i < mImageHeight; i++){
-		for(int j = 1; j < mImageWidth; j++){
-			int offset = i * mImageWidth + j;
-			if(mSkinMatrix[offset] == 255){
-				int iMax = i + radius >= mImageHeight-1 ? mImageHeight-1 : i + radius;
-				int jMax = j + radius >= mImageWidth-1 ? mImageWidth-1 :j + radius;
-				int iMin = i - radius <= 1 ? 1 : i - radius;
-				int jMin = j - radius <= 1 ? 1 : j - radius;
+                                    	for(int i = 1; i < mImageHeight; i++){
+                                    		for(int j = 1; j < mImageWidth; j++){
+                                    			int offset = i * mImageWidth + j;
+                                    			if(mSkinMatrix[offset] == 255){
+                                    				int iMax = i + radius >= mImageHeight-1 ? mImageHeight-1 : i + radius;
+                                    				int jMax = j + radius >= mImageWidth-1 ? mImageWidth-1 :j + radius;
+                                    				int iMin = i - radius <= 1 ? 1 : i - radius;
+                                    				int jMin = j - radius <= 1 ? 1 : j - radius;
 
-				int squar = (iMax - iMin + 1)*(jMax - jMin + 1);
-				int i4 = iMax*mImageWidth+jMax;
-				int i3 = (iMin-1)*mImageWidth+(jMin-1);
-				int i2 = iMax*mImageWidth+(jMin-1);
-				int i1 = (iMin-1)*mImageWidth+jMax;
+                                    				int squar = (iMax - iMin + 1)*(jMax - jMin + 1);
+                                    				int i4 = iMax*mImageWidth+jMax;
+                                    				int i3 = (iMin-1)*mImageWidth+(jMin-1);
+                                    				int i2 = iMax*mImageWidth+(jMin-1);
+                                    				int i1 = (iMin-1)*mImageWidth+jMax;
 
-				float m = (mIntegralMatrix[i4]
-						+ mIntegralMatrix[i3]
-						- mIntegralMatrix[i2]
-						- mIntegralMatrix[i1]) / squar;
+                                    				float m = (mIntegralMatrix[i4]
+                                    						+ mIntegralMatrix[i3]
+                                    						- mIntegralMatrix[i2]
+                                    						- mIntegralMatrix[i1]) / squar;
 
-				float v = (mIntegralMatrixSqr[i4]
-						+ mIntegralMatrixSqr[i3]
-						- mIntegralMatrixSqr[i2]
-						- mIntegralMatrixSqr[i1]) / squar - m*m;
-				float k = v / (v + smoothlevel);
+                                    				float v = (mIntegralMatrixSqr[i4]
+                                    						+ mIntegralMatrixSqr[i3]
+                                    						- mIntegralMatrixSqr[i2]
+                                    						- mIntegralMatrixSqr[i1]) / squar - m*m;
+                                    				float k = v / (v + smoothlevel);
 
-				mImageData_yuv[offset * 3] = ceil(m - k * m + k * mImageData_yuv[offset * 3]);
-			}
-		}
-	}
-	Conversion::YCbCrToRGB(mImageData_yuv, (uint8_t*)storedBitmapPixels,
-		mImageWidth * mImageHeight);
+                                    				mImageData_yuv[offset * 3] = ceil(m - k * m + k * mImageData_yuv[offset * 3]);
+                                    			}
+                                    		}
+                                    	}
+                                    	Conversion::YCbCrToRGB(mImageData_yuv, (uint8_t*)storedBitmapPixels,
+                                    		mImageWidth * mImageHeight);
 }
 
 void MagicBeautify::initSkinMatrix(){

@@ -3,6 +3,7 @@ package com.audition.huiimagiccamera;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -49,6 +50,7 @@ import com.seu.magicfilter.present.Present;
 import com.seu.magicfilter.widget.MagicCameraView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import me.kareluo.imaging.IMGEditActivity;
@@ -223,10 +225,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     protected void onPause() {
         super.onPause();
-        mPresent.releaseCamera();
+//        mPresent.releaseCamera();
 //        mCamera2.stop();
-        Log.e("tzh", "onPause:  ");
+    }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        mPresent.releaseCamera();
     }
 
     @Override
@@ -383,6 +389,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         takePhoto.setImageBitmap(bitmap);
     }
 
+    private static final int REQ_IMAGE_EDIT = 0x01;
+    private File imageFile;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode){
@@ -392,16 +400,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     if(uri != null){
                         Intent intent = new Intent(MainActivity.this , IMGEditActivity.class);
                         String path = PhotoTools.getPath(this , uri);
+                        imageFile = Present.getOutputMediaFile();
                         Uri uri1 = Uri.fromFile(new File(path));
                         intent.putExtra(IMGEditActivity.EXTRA_IMAGE_URI, uri1);
+                        intent.putExtra(IMGEditActivity.EXTRA_IMAGE_SAVE_PATH , imageFile.getAbsolutePath());
                         BeautifulInterface beautifulInterface = new BeautifulImp();
                         IMGEditActivity.setBeautifulInterface(beautifulInterface);
-                        startActivity(intent);
+                        startActivityForResult(intent , REQ_IMAGE_EDIT);
                     }
+                }
+                break;
+            case REQ_IMAGE_EDIT:
+                if(resultCode == Activity.RESULT_OK){
+                    PhotoTools.updatePhotoMedia(imageFile , this);
+                    Bitmap bitmap = decodeBitmap(imageFile);
+                    takePhoto.setImageBitmap(bitmap);
                 }
                 break;
             default:
                 break;
         }
     }
+
 }

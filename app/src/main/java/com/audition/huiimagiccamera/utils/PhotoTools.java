@@ -2,12 +2,15 @@ package com.audition.huiimagiccamera.utils;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+
+import java.io.File;
 
 /**
  * 创建者：   TANHUIHUI
@@ -168,6 +171,11 @@ public class PhotoTools {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
-
+    public static void updatePhotoMedia(File file , Context context){
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        intent.setData(Uri.fromFile(file));
+        context.sendBroadcast(intent);
+    }
 
 }

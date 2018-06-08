@@ -16,6 +16,7 @@ import me.kareluo.imaging.core.file.IMGDecoder;
 import me.kareluo.imaging.core.file.IMGFileDecoder;
 import me.kareluo.imaging.core.util.IMGUtils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -139,6 +140,15 @@ public class IMGEditActivity extends IMGEditBaseActivity {
     @Override
     public void onDoneClick() {
         String path = getIntent().getStringExtra(EXTRA_IMAGE_SAVE_PATH);
+        File file = new File(path);
+        if(!file.exists() || file.isDirectory()){
+            try {
+                boolean newFile = file.createNewFile();
+                Log.i("IMGEditAcitvity", "onDoneClick: " + newFile);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         if (!TextUtils.isEmpty(path)) {
             Bitmap bitmap = mImgView.saveBitmap();
             if (bitmap != null) {
@@ -157,6 +167,7 @@ public class IMGEditActivity extends IMGEditBaseActivity {
                         }
                     }
                 }
+                Log.e("image", "onDoneClick: " + path);
                 setResult(RESULT_OK);
                 finish();
                 return;

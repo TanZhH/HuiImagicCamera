@@ -120,7 +120,7 @@ public class Present {
         });
     }
 
-    private File getOutputMediaFile() {
+    public static File getOutputMediaFile() {
         File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), "HuiImagicCamera");
         if (!mediaStorageDir.exists()) {
@@ -131,7 +131,15 @@ public class Present {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINESE).format(new Date());
         File mediaFile = new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
-
         return mediaFile;
+    }
+
+    public static int degree(){
+        int cameraID = CameraEngine.getCameraID();
+        if(cameraID == Camera.CameraInfo.CAMERA_FACING_FRONT){
+            return 270;
+        }else{
+            return 90;
+        }
     }
 }

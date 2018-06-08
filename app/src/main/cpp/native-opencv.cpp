@@ -20,6 +20,9 @@
 
 using namespace std;
 
+/**
+* 将Java层的String字符串转化成JNI能用的Char*数组
+*/
 char *jstringTostring(JNIEnv *env, jstring jstring1) {
     char *rtn = NULL;
     jclass classtring = env->FindClass("java/lang/String");
