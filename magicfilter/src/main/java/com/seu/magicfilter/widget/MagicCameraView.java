@@ -256,7 +256,7 @@ public class MagicCameraView extends MagicBaseView {
         if(beautyFilter == null) {
             beautyFilter = new MagicBeautyFilter();
         }
-        beautyFilter.init();
+        beautyFilter.onInit();
         beautyFilter.onDisplaySizeChanged(width, height);
         beautyFilter.onInputSizeChanged(width, height);
 
