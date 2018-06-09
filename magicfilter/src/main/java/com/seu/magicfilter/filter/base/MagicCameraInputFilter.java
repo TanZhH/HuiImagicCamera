@@ -27,12 +27,13 @@ public class MagicCameraInputFilter extends GPUImageFilter{
                 OpenGlUtils.readShaderFromRawResource(R.raw.default_fragment));
     }
 
+    @Override
     protected void onInit() {
         super.onInit();
         mTextureTransformMatrixLocation = GLES20.glGetUniformLocation(mGLProgId, "textureTransform");
         mSingleStepOffsetLocation = GLES20.glGetUniformLocation(getProgram(), "singleStepOffset");
         mParamsLocation = GLES20.glGetUniformLocation(getProgram(), "params");
-        setBeautyLevel(MagicParams.beautyLevel);
+        setBeautyLevel(mParamsLocation , MagicParams.beautyLevel);
     }
 
     public void setTextureTransformMatrix(float[] mtx){
@@ -96,8 +97,9 @@ public class MagicCameraInputFilter extends GPUImageFilter{
     }
 
     public int onDrawToTexture(final int textureId) {
-        if(mFrameBuffers == null)
+        if(mFrameBuffers == null) {
             return OpenGlUtils.NO_TEXTURE;
+        }
         runPendingOnDrawTasks();
         GLES20.glViewport(0, 0, mFrameWidth, mFrameHeight);
         GLES20.glBindFramebuffer(GLES20.GL_FRAMEBUFFER, mFrameBuffers[0]);
@@ -129,8 +131,9 @@ public class MagicCameraInputFilter extends GPUImageFilter{
     }
 
     public void initCameraFrameBuffer(int width, int height) {
-        if(mFrameBuffers != null && (mFrameWidth != width || mFrameHeight != height))
+        if(mFrameBuffers != null && (mFrameWidth != width || mFrameHeight != height)) {
             destroyFramebuffers();
+        }
         if (mFrameBuffers == null) {
             mFrameWidth = width;
             mFrameHeight = height;
@@ -181,31 +184,6 @@ public class MagicCameraInputFilter extends GPUImageFilter{
         setTexelSize(width, height);
     }
 
-    public void setBeautyLevel(int level){
-        switch (level) {
-            case 0:
-                setFloat(mParamsLocation, 0.0f);
-                break;
-            case 1:
-                setFloat(mParamsLocation, 2.0f);
-                break;
-            case 2:
-                setFloat(mParamsLocation, 1.4f);
-                break;
-            case 3:
-                setFloat(mParamsLocation,1.6f);
-                break;
-            case 4:
-                setFloat(mParamsLocation, 1.8f);
-                break;
-            case 5:
-                setFloat(mParamsLocation,0.1f);
-                break;
-            default:
-                break;
-        }
-    }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -213,7 +191,6 @@ public class MagicCameraInputFilter extends GPUImageFilter{
     }
 
     public void onBeautyLevelChanged(){
-        setBeautyLevel(MagicParams.beautyLevel);
+        setBeautyLevel(mParamsLocation , MagicParams.beautyLevel);
     }
-
 }

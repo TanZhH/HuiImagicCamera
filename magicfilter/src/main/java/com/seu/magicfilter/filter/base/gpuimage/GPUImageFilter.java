@@ -19,6 +19,7 @@ package com.seu.magicfilter.filter.base.gpuimage;
 import android.graphics.PointF;
 import android.opengl.GLES20;
 
+import com.seu.magicfilter.utils.MagicParams;
 import com.seu.magicfilter.utils.OpenGlUtils;
 import com.seu.magicfilter.utils.Rotation;
 import com.seu.magicfilter.utils.TextureRotationUtil;
@@ -310,4 +311,30 @@ public class GPUImageFilter {
     	mOutputWidth = width;
     	mOutputHeight = height;
     }
+
+    public void setBeautyLevel(int params , int level){
+        switch (level) {
+            case 0:
+                setFloat(params, 0.0f);
+                break;
+            case 1:
+                setFloat(params, 2.0f);
+                break;
+            case 2:
+                setFloat(params, 1.4f);
+                break;
+            case 3:
+                setFloat(params,1.6f);
+                break;
+            case 4:
+                setFloat(params, 1.8f);
+                break;
+            case 5:
+                setFloat(params,0.1f);
+                break;
+            default:
+                break;
+        }
+    }
+
 }

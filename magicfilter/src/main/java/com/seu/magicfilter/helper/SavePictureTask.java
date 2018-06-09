@@ -67,8 +67,8 @@ public class SavePictureTask extends AsyncTask<Bitmap, Integer, String>{
 		}
 		try {
 			FileOutputStream out = new FileOutputStream(file);
-			int degrees = Present.degree();
-			Bitmap resultBitmap = rotateBitmap(bitmap , degrees);
+//			int degrees = Present.degree();
+			Bitmap resultBitmap = rotateBitmap(bitmap);
 			resultBitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
 			out.flush();
 			out.close();
@@ -92,15 +92,15 @@ public class SavePictureTask extends AsyncTask<Bitmap, Integer, String>{
 	 * 旋转图片，使图片保持正确的方向。
 	 *
 	 * @param bitmap 原始图片
-	 * @param degrees 原始图片的角度
 	 * @return Bitmap 旋转后的图片
 	 */
-	private Bitmap rotateBitmap(Bitmap bitmap, int degrees) {
-		if (degrees == 0 || null == bitmap) {
+	private Bitmap rotateBitmap(Bitmap bitmap) {
+		if (null == bitmap) {
 			return bitmap;
 		}
 		Matrix matrix = new Matrix();
-		matrix.setRotate(degrees, bitmap.getWidth() / 2, bitmap.getHeight() / 2);
+		//镜像垂直翻转;
+		matrix.postScale(1, -1);
 		Bitmap bmp = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 		bitmap.recycle();
 		return bmp;
