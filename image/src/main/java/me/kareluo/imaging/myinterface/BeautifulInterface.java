@@ -2,6 +2,8 @@ package me.kareluo.imaging.myinterface;
 
 import android.graphics.Bitmap;
 
+import java.nio.ByteBuffer;
+
 /**
  * 创建者：   TANHUIHUI
  * 项  目：   HuiImagicCamera
@@ -11,6 +13,7 @@ import android.graphics.Bitmap;
  */
 
 public interface BeautifulInterface {
-    Bitmap setMopi(Bitmap bitmap , int progress);
-    Bitmap setMeibai(Bitmap bitmap , int progress);
+    ByteBuffer setBitmap(Bitmap bitmap);
+    Bitmap setMopi(ByteBuffer byteBuffer , int progress);
+    Bitmap setMeibai(ByteBuffer byteBuffer , int progress);
 }

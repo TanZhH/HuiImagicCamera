@@ -37,8 +37,8 @@ private:
 	
 	void initSkinMatrix();
 
-	void _startBeauty(float smoothlevel, float whitenlevel);
-	void _startSkinSmooth(float smoothlevel);
-	void _startWhiteSkin(float whitenlevel);
+	void _startBeauty();
+    uint32_t * _startSkinSmooth(uint32_t *piexs , float smoothlevel);
+	uint32_t * _startWhiteSkin(float whitenlevel);
 };
 #endif

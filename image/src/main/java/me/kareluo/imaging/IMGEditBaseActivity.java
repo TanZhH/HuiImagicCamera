@@ -10,6 +10,8 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.ViewSwitcher;
 
+import java.nio.ByteBuffer;
+
 import me.kareluo.imaging.core.IMGMode;
 import me.kareluo.imaging.core.IMGText;
 import me.kareluo.imaging.myinterface.BeautifulInterface;
@@ -50,6 +52,11 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
     private Bitmap bitmap;
 
+    private ByteBuffer byteBuffer;
+
+    private int white;
+    private int smooth;
+
     private SeekBar.OnSeekBarChangeListener mopiSeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
         public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -63,8 +70,16 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Bitmap bitmap2 = beautifulInterface.setMopi(IMGEditBaseActivity.this.bitmap, seekBar.getProgress());
-            mImgView.setImageBitmap(bitmap2);
+            smooth = seekBar.getProgress();
+            if(smooth / 10 == 0){
+                if(white / 20 == 0){
+                    mImgView.setImageBitmap(bitmap);
+                }
+            }else {
+                Bitmap bitmap2 = beautifulInterface.setMopi(byteBuffer,smooth);
+                mImgView.setImageBitmap(bitmap2);
+            }
+
         }
     };
 
@@ -81,8 +96,15 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            Bitmap bitmap3 = beautifulInterface.setMeibai(IMGEditBaseActivity.this.bitmap, seekBar.getProgress());
-            mImgView.setImageBitmap(bitmap3);
+            white = seekBar.getProgress();
+            if(white / 20 == 0){
+                if(smooth / 10 == 0){
+                    mImgView.setImageBitmap(bitmap);
+                }
+            }else {
+                Bitmap bitmap3 = beautifulInterface.setMeibai(byteBuffer, white);
+                mImgView.setImageBitmap(bitmap3);
+            }
         }
     };
 
@@ -95,6 +117,7 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
             setContentView(R.layout.image_edit_activity);
             initViews();
             mImgView.setImageBitmap(bitmap);
+            byteBuffer = beautifulInterface.setBitmap(bitmap);
             onCreated();
         } else {
             finish();
@@ -177,6 +200,7 @@ abstract class IMGEditBaseActivity extends Activity implements View.OnClickListe
 
     public void onTextModeClick() {
         findViewById(R.id.ll_sb2).setVisibility(View.GONE);
+        findViewById(R.id.ll_beautiful).setVisibility(View.GONE);
         if (mTextDialog == null) {
             mTextDialog = new IMGTextEditDialog(this, this);
             mTextDialog.setOnShowListener(this);

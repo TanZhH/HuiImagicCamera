@@ -110,6 +110,7 @@ public class IMGEditActivity extends IMGEditBaseActivity {
     @Override
     public void onModeClick(IMGMode mode) {
         findViewById(R.id.ll_sb2).setVisibility(View.GONE);
+        findViewById(R.id.ll_beautiful).setVisibility(View.GONE);
         IMGMode cm = mImgView.getMode();
         if (cm == mode) {
             mode = IMGMode.NONE;
@@ -211,9 +212,11 @@ public class IMGEditActivity extends IMGEditBaseActivity {
             updateModeUI();
             ((RadioGroup)findViewById(R.id.rg_modes)).check(R.id.beautiful);
             findViewById(R.id.ll_sb2).setVisibility(View.VISIBLE);
+            findViewById(R.id.ll_beautiful).setVisibility(View.VISIBLE);
             isShow = true;
         }else {
             findViewById(R.id.ll_sb2).setVisibility(View.GONE);
+            findViewById(R.id.ll_beautiful).setVisibility(View.GONE);
             isShow = false;
         }
     }

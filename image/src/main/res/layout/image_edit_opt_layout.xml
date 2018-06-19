@@ -59,8 +59,8 @@
             android:id="@+id/vs_op_sub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:measureAllChildren="true">
+            android:measureAllChildren="true"
+            android:visibility="gone">
 
             <me.kareluo.imaging.view.IMGColorGroup
                 android:id="@+id/cg_colors"
@@ -134,28 +134,58 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_sb2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/ll_beautiful"
+            android:visibility="visible">
 
-        <SeekBar
-            android:id="@+id/sb_mopi"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_mopi"
+                android:textSize="25sp"
+                android:layout_marginBottom="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tv_meibai"
+                android:textSize="25sp"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_sb2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progressDrawable="@drawable/image_seekbar_bg"
-            android:thumb="@drawable/image_seekbar_thumb"
-            android:layout_marginBottom="15dp"
-            />
+            android:orientation="vertical"
+            android:visibility="visible">
 
-        <SeekBar
-            android:id="@+id/sb_meibai"
-            android:progressDrawable="@drawable/image_seekbar_bg"
-            android:thumb="@drawable/image_seekbar_thumb"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <SeekBar
+                android:id="@+id/sb_mopi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:padding="5dp"
+                android:progressDrawable="@drawable/image_seekbar_bg"
+                android:thumb="@drawable/image_seekbar_thumb" />
 
+            <SeekBar
+                android:id="@+id/sb_meibai"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:progressDrawable="@drawable/image_seekbar_bg"
+                android:thumb="@drawable/image_seekbar_thumb" />
+
+        </LinearLayout>
     </LinearLayout>
 
     <RadioGroup
@@ -172,10 +202,10 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@mipmap/ic_camera_beauty_pressed"
+            android:button="@null"
             android:contentDescription="@string/image_beautiful"
             android:gravity="center"
             android:onClick="onClick"
-            android:button="@null"
             android:textColor="#FFF" />
 
         <Space

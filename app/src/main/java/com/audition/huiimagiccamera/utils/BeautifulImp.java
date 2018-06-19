@@ -18,20 +18,24 @@ import me.kareluo.imaging.myinterface.BeautifulInterface;
  */
 
 public class BeautifulImp implements BeautifulInterface {
+
     @Override
-    public Bitmap setMopi(Bitmap bitmap, int progress) {
+    public ByteBuffer setBitmap(Bitmap bitmap){
         ByteBuffer byteBuffer = MagicJni.jniStoreBitmapData(bitmap);
         MagicJni.jniInitMagicBeautify(byteBuffer);
+        return byteBuffer;
+    }
+
+    @Override
+    public Bitmap setMopi(ByteBuffer byteBuffer, int progress) {
         Log.e("tzh", "setMopi: " + progress +"     "+ progress/10);
         MagicJni.jniStartSkinSmooth((float) (progress/10));
         return MagicJni.jniGetBitmapFromStoredBitmapData(byteBuffer);
     }
 
     @Override
-    public Bitmap setMeibai(Bitmap bitmap, int progress) {
-        ByteBuffer byteBuffer = MagicJni.jniStoreBitmapData(bitmap);
-        MagicJni.jniInitMagicBeautify(byteBuffer);
-        Log.e("tzh", "setmeibai: " + progress/20);
+    public Bitmap setMeibai(ByteBuffer byteBuffer, int progress) {
+        Log.e("meibai", "setmeibai: "+progress + "      " + progress/20);
         MagicJni.jniStartWhiteSkin((float)(progress/20));
         return MagicJni.jniGetBitmapFromStoredBitmapData(byteBuffer);
     }

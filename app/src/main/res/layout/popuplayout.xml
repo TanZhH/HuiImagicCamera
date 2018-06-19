@@ -37,6 +37,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
 
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -45,34 +46,6 @@
                 android:text="2"
                 android:textColor="@android:color/white"
                 android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="3"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="4"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:text="5"
-                android:textColor="@android:color/white"
-                android:textSize="20sp" />
-
         </LinearLayout>
 
         <SeekBar

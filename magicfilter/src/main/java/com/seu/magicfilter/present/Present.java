@@ -83,18 +83,18 @@ public class Present {
         if(num < 10){
             interActivityParms.setSeekBarNum(0);
             whith = 0;
-        }else if(num >= 10 && num < 30){
-            interActivityParms.setSeekBarNum(20);
+        }else if(num >= 10 && num < 25){
+            interActivityParms.setSeekBarNum(0);
+            whith = 0;
+        }else if(num >= 25 && num < 50){
+            interActivityParms.setSeekBarNum(50);
             whith = 1;
-        }else if(num >= 30 && num < 50){
-            interActivityParms.setSeekBarNum(40);
-            whith = 2;
-        }else if(num >= 50 && num < 70){
-            interActivityParms.setSeekBarNum(60);
-            whith = 3;
-        }else if(num >= 70 && num < 90){
-            interActivityParms.setSeekBarNum(80);
-            whith = 4;
+        }else if(num >= 50 && num < 75){
+            interActivityParms.setSeekBarNum(50);
+            whith = 1;
+        }else if(num >= 75 && num < 90){
+            interActivityParms.setSeekBarNum(100);
+            whith = 5;
         }else if(num >= 90 && num <= 100){
             interActivityParms.setSeekBarNum(100);
             whith = 5;
